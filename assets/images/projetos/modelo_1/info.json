@@ -1,0 +1,25 @@
+{
+    "id": 1,
+    "titulo": "Residência Unifamiliar P1",
+    "descricao": "Projeto de residência com 32 m², construída com blocon®. Em um terreno de 200 m², a residência conta com 1 quarto, sala-cozinha integrada, lavanderia, área gramada e garagem.",
+    "categoria": "residencial",
+    "imagem": "assets/images/projetos/modelo_1/imagem1.jpg",
+    "imagens": [
+        "assets/images/projetos/modelo_1/imagem1.jpg",
+        "assets/images/projetos/modelo_1/imagem2.jpg",
+        "assets/images/projetos/modelo_1/imagem3.jpg",
+        "assets/images/projetos/modelo_1/imagem4.jpg",
+        "assets/images/projetos/modelo_1/imagem5.jpg",
+        "assets/images/projetos/modelo_1/imagem6.jpg",
+        "assets/images/projetos/modelo_1/imagem7.jpg",
+        "assets/images/projetos/modelo_1/imagem8.jpg",
+        "assets/images/projetos/modelo_1/imagem9.jpg"
+    ],
+    "detalhes": {
+        "area": "32 m²",
+        "ano": "2026",
+        "localizacao": " - ",
+        "tempo": " - ",
+        "responsavel": "Eng. OAlmeida"
+    }
+}

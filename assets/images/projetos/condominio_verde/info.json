@@ -1,0 +1,18 @@
+{
+    "id": 2,
+    "titulo": "Condomínio Residencial Verde",
+    "descricao": "Condomínio com 4 torres e área comum sustentável, incluindo sistema de reaproveitamento de água e energia solar.",
+    "categoria": "residencial",
+    "imagem": "assets/images/projetos/alphaville/principal.jpg",
+    "imagens": [
+        "assets/images/projetos/alphaville/imagem1.jpg",
+         "assets/images/projetos/alphaville/imagem2.jpg"
+    ],
+    "detalhes": {
+        "area": "12.000 m²",
+        "ano": "2022",
+        "localizacao": "Santana, São Paulo",
+        "tempo": "24 meses",
+        "responsavel": "Arq. Roberto Lima"
+    }
+}

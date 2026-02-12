@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" href="favicon_site.svg" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engenharia Civil Excellence | Soluções em Construção</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Cabeçalho / Navegação -->
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <!-- <span class="logo-text">EngCivil<span class="logo-highlight">Excellence</span></span> -->
+                    <span class="logo-text">Rodrigo Oliveira Almeida</span>
+                </a>
+
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <!-- <li><a href="#servicos" class="nav-link">Serviços</a></li> -->
+                    <li><a href="#servicos" class="nav-link">Interesses</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfólio</a></li>
+                    <!-- <li><a href="#sobre" class="nav-link">Sobre</a></li> -->
+                    <li><a href="#sobre" class="nav-link">Formação</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Seção Hero / Home -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <!-- <h1 class="hero-title">Excelência em <span class="highlight">Engenharia Civil</span></h1> -->
+                <h1 class="hero-title">Estudante de Engenharia Civil</h1>
+                <!-- <p class="hero-subtitle">Projetando, construindo e transformando espaços com precisão, qualidade e
+                    inovação há mais de 15 anos.</p> -->
+                <div class="hero-buttons">
+                    <!-- <a href="#portfolio" class="btn btn-primary">Ver Projetos</a> -->
+                    <a href="#portfolio" class="btn btn-primary">Ver Portfólio</a>
+                    <!-- <a href="#contato" class="btn btn-secondary">Solicitar Orçamento</a> -->
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-frame">
+                    <!-- <img src="assets/images/hero-bg.jpg" alt="Projeto de engenharia civil moderno"> -->
+                    <img src="assets/images/hero-bg.jpg" alt="Imagem Principal">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Serviços -->
+    <!-- Seção Interesses -->
+    <section id="servicos" class="services">
+        <div class="container">
+            <div class="section-header">
+                <!-- <h2 class="section-title">Nossos <span class="highlight">Serviços</span></h2> -->
+                <h2 class="section-title">Interesses</span></h2>
+                <!-- <p class="section-subtitle">Oferecemos soluções completas em engenharia civil para residências,
+                    comércios e indústrias.</p> -->
+                    <p class="section-subtitle">Buscando por conhecimento nas diversas áreas da engenharia civil, nos segmentos residenciais,
+                    comerciais e industriais.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="service-title">Projetos Arquitetônicos</h3>
+                    <!-- <p class="service-description">Desenvolvimento de projetos arquitetônicos residenciais e comerciais
+                        com foco em funcionalidade e estética.</p> -->
+                    <p class="service-description">Desenvolvimento de projetos arquitetônicos utilizando metodologia BIM.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="service-title">Construção Civil</h3>
+                    <!-- <p class="service-description">Execução de obras com qualidade, segurança e dentro dos prazos
+                        estabelecidos, seguindo todas as normas técnicas.</p> -->
+                    <p class="service-description">Acompanhamento no planejamento e execução de obras.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3 class="service-title">Regularização de Imóveis</h3>
+                    <!-- <p class="service-description">Regularização de imóveis junto aos órgãos públicos, incluindo
+                        habite-se e alvarás de construção.</p> -->
+                    <p class="service-description">Acompanhar responsável técnico a edificação a ser regularizada, assim como aos órgãos públicos.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="service-title">Reformas e Ampliações</h3>
+                    <!-- <p class="service-description">Reformas estruturais, ampliações e revitalização de espaços
+                        existentes para melhor aproveitamento.</p> -->
+                    <p class="service-description">Reformas estruturais, ampliações, demolições e revitalização de espaços.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="service-title">Laudos e Perícias</h3>
+                    <!-- <p class="service-description">Elaboração de laudos técnicos, avaliações de imóveis e perícias
+                        judiciais.</p> -->
+                    <p class="service-description">Elaboração de laudos técnicos, avaliações de imóveis e perícias judiciais.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="service-title">Sustentabilidade</h3>
+                    <!-- <p class="service-description">Projetos sustentáveis com foco em eficiência energética,
+                        reaproveitamento de água e materiais ecológicos.</p> -->
+                    <p class="service-description">Eficiência energética, reaproveitamento de água e materiais alternativos ecológicos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Portfólio -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <!-- <h2 class="section-title">Nosso <span class="highlight">Portfólio</span></h2> -->
+                <h2 class="section-title">Portfólio</h2>
+                <!-- <p class="section-subtitle">Conheça alguns dos nossos projetos recentes de engenharia civil e
+                    construção.</p> -->
+                <p class="section-subtitle">Conheça alguns dos meus projetos, desenvolvidos em Revit.</p>
+            </div>
+
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="residencial">Residencial</button>
+                <button class="filter-btn" data-filter="comercial">Comercial</button>
+                <button class="filter-btn" data-filter="industrial">Industrial</button>
+                <button class="filter-btn" data-filter="reforma">Reforma</button>
+            </div>
+
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- Os projetos serão carregados dinamicamente via JavaScript -->
+            </div>
+
+            <div class="portfolio-cta">
+                <!-- <p>Interessado em ver mais projetos detalhados?</p> -->
+                <p>Caso possa oferecer um estágio (não reminerado)</p>
+                <a href="#contato" class="btn btn-primary">Entre em contato</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <!-- Seção Formação -->
+    <section id="sobre" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-header">
+                        <!-- <h2 class="section-title">Formação <span class="highlight">Nós</span></h2> -->
+                        <h2 class="section-title">Formação</h2>
+                        <!-- <p class="section-subtitle">Expertise, compromisso e qualidade em cada projeto.</p> -->
+                        <p class="section-subtitle">A seguir, minha experiência profissional e formação.</p>
+                    </div>
+
+                    <div class="about-details">
+                        <!-- <p>A <strong>EngCivilExcellence</strong> é uma empresa especializada em engenharia civil com
+                            mais de 15 anos de experiência no mercado. Nosso compromisso é transformar ideias em
+                            realidade através de projetos bem planejados e executados com excelência.</p> -->
+                        <!-- <p>Nossa equipe é formada por engenheiros civis altamente qualificados, com ampla experiência em
+                            diferentes segmentos da construção civil, desde pequenas reformas até grandes
+                            empreendimentos comerciais e industriais.</p> -->
+                        <p>Atuação em laboratório de química (estágio), como técnico químico, na Companhia Paraibuna de metais 
+                            (atualmente Grupo Votorantim) em Juiz de Fora - MG, realizando análises de qualidade de óxido 
+                            de zinco através de análises por via úmida e por espectrofotômetro de absorção atômica.</p>
+
+                        <p>Estagiário nos laboratórios da Embrapa Gado de Leite (Juiz de Fora - MG), realizando análises 
+                            de eletroforese.</p>
+                        
+                        <p>Estagiário nas empresas C. Kramer e Kwerkerij de Watertoren (Holanda), trabalhando com cultivo 
+                            de plantas ornamentais.</p>
+                        
+                        <p>Tutor em mini curso de biotecnologia, da Pós Graduação em Biotecnologia Vegetal (Lavras - MG).</p>
+
+                        <p>Pesquisador DTI-B na Embrapa Clima Temperado (Pelotas - RS), trabalhando com micropropagação de cana-de-açúcar.</p>
+
+                        <p>Pesquisador visitante pela University of Hertfordshire (UK), trabalhando com Inteligência Artificial 
+                            (Machine Learning) para predição de genes de resistência a fitopatógenos.</p>
+                        
+                        <p>Atuação em pesquisa sobre Inteligência Artificial aplicada ao setor florestal, durante estágio 
+                            pós doutoral (Botucatu - SP).</p>
+                        
+                        <p>Atualmente, técnico do laboratório de química do Instituto Federal do Sudeste de Minas Gerais - campus 
+                            Muriaé.</p>
+
+                        <div class="about-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <!-- <span>Mais de 150 projetos entregues</span> -->
+                                <span>Técnico em Química Industrial - Colégio Pio XII - Juiz de Fora - MG</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <!-- <span>Equipe especializada e certificada</span> -->
+                                <span>Bacharel em Agronomia - Universidade Federal de Viçosa - MG</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <!-- <span>Equipe especializada e certificada</span> -->
+                                <span>Licenciatura em Biologia - Complementação Pedagógica R2</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <!-- <span>Compromisso com prazos e orçamentos</span> -->
+                                <span>Mestre em Biotecnologia Vegetal - Universidade Federal de Lavras - MG</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <!-- <span>Soluções sustentáveis e inovadoras</span> -->
+                                <span>Doutor em Biotecnologia - UNESP Botucatu - SP</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <!-- <span>Soluções sustentáveis e inovadoras</span> -->
+                                <span>Pós Doutoramento em Inteligência Artificial aplicada ao Setor Florestal - Departamento de Ciência Florestal - UNESP Botucatu - SP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-cta">
+                        <!-- <a href="#contato" class="btn btn-primary">Fale conosco</a> -->
+                        <a href="#contato" class="btn btn-primary">Contato</a>
+                        <a href="#portfolio" class="btn btn-secondary">Meu portfólio</a>
+                    </div>
+                </div>
+
+                <div class="about-image">
+                    <div class="image-frame">
+                        <img src="assets/images/engineer-profile.jpg" alt="Engenheiro Civil">
+                        <!--
+                        <div class="experience-badge">
+                            <div class="years">15+</div>
+                            <div class="years-text">Anos de Experiência</div>
+                        </div>
+			-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Contato - Versão Enxuta -->
+    <section id="contato" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <!-- <h2 class="section-title">Entre em <span class="highlight">Contato</span></h2> -->
+                <h2 class="section-title">Informações para contato</h2>
+                <!--<p class="section-subtitle">Tem um projeto em mente? Entre em contato e vamos conversar!</p> -->
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Endereço</h3>
+                            <p>Rua Itagiba de Oliveira<br>Barra, Muriaé - MG</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Telefone</h3>
+                            <p>(32) 99122-7340 (WhatsApp)</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>E-mail</h3>
+                            <p>rodrigooliveiraufv@gmail.com.br</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-action">
+                    <!-- <h3>Como podemos ajudar?</h3> -->
+                    <h3>Tem uma oportunidade de estágio?</h3>
+                    <!-- <p>Entre em contato por um dos meios abaixo para solicitar um orçamento ou tirar dúvidas sobre
+                        nossos serviços.</p> -->
+                    <p>Entre em contato por um dos meios abaixo.</p>
+
+                    <div class="action-buttons">
+                        <!--
+                        <a href="tel:+551134567890" class="action-btn phone-btn">
+                            <i class="fas fa-phone"></i>
+                            <span>Ligar Agora</span>
+                        </a>
+			-->
+
+                        <a href="https://wa.me/553299
+                        1227340" target="_blank" class="action-btn whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+
+                        <a href="mailto:rodrigooliveiraufv@gmail.com.br" class="action-btn email-btn">
+                            <i class="fas fa-envelope"></i>
+                            <span>Enviar E-mail</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <!-- <span class="logo-text">EngCivil<span class="logo-highlight">Excellence</span></span> -->
+                        <span class="logo-text">Rodrigo Oliveira Almeida</span>
+                    </a>
+                    <!-- <p class="footer-description">Excelência em engenharia civil e construção, transformando ideias em
+                        realidade com qualidade e inovação.</p> -->
+                    <div class="social-links">
+                        <a href="https://br.linkedin.com/in/rodrigo-de-oliveira-almeida-b9b1291aa" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <!--<a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a> -->
+                        <a href="https://wa.me/5532991227340" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#servicos">Interesses</a></li>
+                        <li><a href="#portfolio">Portfólio</a></li>
+                        <!-- <li><a href="#sobre">Sobre</a></li> -->
+                        <li><a href="#sobre">Formação</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <!-- <h3>Serviços</h3> -->
+                    <h3>Interesses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#servicos">Projetos Arquitetônicos</a></li>
+                        <li><a href="#servicos">Construção Civil</a></li>
+                        <li><a href="#servicos">Regularização de Imóveis</a></li>
+                        <li><a href="#servicos">Reformas e Ampliações</a></li>
+                        <li><a href="#servicos">Laudos e Perícias</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 OAlmeida. Todos os direitos reservados.</p>
+                <!-- <p>Desenvolvido com <i class="fas fa-heart"></i> para a comunidade de engenharia civil</p> -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão para voltar ao topo -->
+    <a href="#home" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Modal de Projeto -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <!-- gera automaticamente os cards dos projetos -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
