@@ -1151,3 +1151,60 @@ footer {
     max-width: 80%;
     max-height: 80%;
 }
+
+/* Container do título + botão */
+.project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.project-header h3 {
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Botão do dashboard */
+.btn-dashboard {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-dashboard:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-dashboard:active {
+  transform: translateY(0);
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .btn-dashboard {
+    width: 100%;
+    justify-content: center;
+  }
+}
