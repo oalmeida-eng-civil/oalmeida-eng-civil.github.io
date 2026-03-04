@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Materiais — 1-Casa-P-arquitetura</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0e14; --surface:#111720; --surface2:#1a2232; --border:#1f2d42;
+    --accent:#00d4ff; --accent2:#ff6b35; --accent3:#7fff6b; --accent4:#c47fff;
+    --text:#e8f0fe; --muted:#5a7a9a;
+    --font-d:'Syne',sans-serif; --font-m:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-d);min-height:100vh;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;
+    background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);
+    background-size:40px 40px;pointer-events:none;z-index:0}
+
+  /* HEADER */
+  header{position:relative;z-index:10;padding:28px 40px 20px;border-bottom:1px solid var(--border);
+    display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .logo-area{display:flex;flex-direction:column;gap:5px}
+  .logo-tag{font-family:var(--font-m);font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase}
+  h1{font-size:clamp(20px,3vw,32px);font-weight:800;letter-spacing:-1px;line-height:1}
+  h1 span{color:var(--accent)}
+  .proj{font-family:var(--font-m);font-size:11px;color:var(--muted);margin-top:3px}
+  .hdr-meta{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .pill{background:var(--surface);border:1px solid var(--border);padding:5px 12px;border-radius:20px;
+    font-family:var(--font-m);font-size:11px;color:var(--muted)}
+  .pill strong{color:var(--accent)}
+
+  /* BANNER */
+  .banner{position:relative;z-index:10;margin:20px 40px;
+    background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(196,127,255,.06));
+    border:1px solid rgba(0,212,255,.2);border-radius:12px;padding:20px 28px;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px}
+  .stat{display:flex;flex-direction:column;gap:3px}
+  .stat-l{font-family:var(--font-m);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
+  .stat-v{font-size:24px;font-weight:800;letter-spacing:-1px}
+  .stat-s{font-family:var(--font-m);font-size:9px;color:var(--muted)}
+
+  /* TAB NAV */
+  .tab-nav{position:relative;z-index:10;margin:0 40px 18px;display:flex;gap:4px;
+    border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+  .tab-nav::-webkit-scrollbar{display:none}
+  .tab-btn{padding:10px 22px;background:none;border:none;border-bottom:2px solid transparent;
+    color:var(--muted);font-family:var(--font-d);font-size:13px;font-weight:600;cursor:pointer;
+    white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:8px;margin-bottom:-1px}
+  .tab-btn:hover{color:var(--text)}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .tab-badge{background:var(--surface2);border:1px solid var(--border);padding:1px 7px;
+    border-radius:10px;font-family:var(--font-m);font-size:9px}
+  .tab-btn.active .tab-badge{background:rgba(0,212,255,.15);border-color:rgba(0,212,255,.3);color:var(--accent)}
+
+  /* PANEL */
+  .panel{position:relative;z-index:10;margin:0 40px;display:none}
+  .panel.active{display:block}
+  .sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .sec-ttl{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+
+  /* chip */
+  .chip{font-family:var(--font-m);font-size:9px;padding:3px 8px;background:var(--surface2);
+    border:1px solid var(--border);border-radius:4px;color:var(--muted);white-space:nowrap}
+  .chip strong{color:var(--text)}
+
+  /* ═══ B1 WALL PANEL ═══ */
+  .wp{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    overflow:hidden;margin-bottom:28px;position:relative}
+  .wp::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
+
+  .wp-head{display:flex;align-items:center;gap:12px;padding:14px 20px;
+    border-bottom:1px solid var(--border);background:rgba(0,212,255,.03);flex-wrap:wrap}
+  .wp-head-title{font-size:13px;font-weight:700;white-space:nowrap}
+  .wp-chips{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+  .wp-total{font-family:var(--font-m);font-size:15px;font-weight:700;color:var(--accent);
+    white-space:nowrap;margin-left:auto}
+
+  .wp-bloco{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    padding:12px 20px;border-bottom:1px solid var(--border);background:rgba(0,212,255,.02)}
+  .bloco-lbl{font-family:var(--font-m);font-size:9px;color:var(--accent);
+    text-transform:uppercase;letter-spacing:2px;white-space:nowrap}
+  .dim-row{display:flex;align-items:center;gap:6px}
+  .dim-g{display:flex;flex-direction:column;gap:2px}
+  .dim-l{font-family:var(--font-m);font-size:8px;color:var(--muted);text-transform:uppercase}
+  .dim-i{background:var(--bg);border:1px solid var(--border);border-radius:4px;
+    color:var(--accent);font-family:var(--font-m);font-size:13px;font-weight:600;
+    padding:4px 6px;width:62px;text-align:center;outline:none;transition:border-color .2s}
+  .dim-i:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(0,212,255,.1)}
+  .dim-sep{font-family:var(--font-m);font-size:15px;color:var(--muted);padding-top:14px}
+  .bloco-qty{font-family:var(--font-m);font-size:11px;color:var(--muted);
+    white-space:nowrap;margin-left:8px}
+  .bloco-qty strong{color:var(--accent);font-size:14px}
+
+  /* sliders grid — 9 equal columns on wide screens */
+  .wp-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:0}
+  @media(max-width:1200px){.wp-grid{grid-template-columns:repeat(5,1fr)}}
+  @media(max-width:800px) {.wp-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:500px) {.wp-grid{grid-template-columns:repeat(2,1fr)}}
+
+  .wp-cell{padding:14px 16px 12px;border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:5px;min-width:0}
+  .wp-cell:last-child{border-right:none}
+  .wc-name{font-family:var(--font-m);font-size:9px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.8px;line-height:1.3;min-height:26px}
+  .wc-unit{font-family:var(--font-m);font-size:8px;color:var(--muted);opacity:.65}
+  .wc-val{font-family:var(--font-m);font-size:12px;font-weight:600;color:var(--accent)}
+  .wc-qty{font-family:var(--font-m);font-size:9px;color:var(--muted);min-height:13px}
+
+  /* range inputs */
+  input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;cursor:pointer;transition:transform .15s}
+  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.35)}
+  .t1 input[type=range]{background:linear-gradient(to right,#00d4ff var(--pct,50%),#1a2232 var(--pct,50%))}
+  .t2 input[type=range]{background:linear-gradient(to right,#ff6b35 var(--pct,50%),#1a2232 var(--pct,50%))}
+  .t3 input[type=range]{background:linear-gradient(to right,#7fff6b var(--pct,50%),#1a2232 var(--pct,50%))}
+  .t4 input[type=range]{background:linear-gradient(to right,#c47fff var(--pct,50%),#1a2232 var(--pct,50%))}
+  .t1 input[type=range]::-webkit-slider-thumb{background:#00d4ff;box-shadow:0 0 7px rgba(0,212,255,.7)}
+  .t2 input[type=range]::-webkit-slider-thumb{background:#ff6b35;box-shadow:0 0 7px rgba(255,107,53,.7)}
+  .t3 input[type=range]::-webkit-slider-thumb{background:#7fff6b;box-shadow:0 0 7px rgba(127,255,107,.7)}
+  .t4 input[type=range]::-webkit-slider-thumb{background:#c47fff;box-shadow:0 0 7px rgba(196,127,255,.7)}
+
+  /* ═══ B2-B4 CARDS ═══ */
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:28px}
+  .mat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;
+    position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s;animation:fadeUp .35s ease both}
+  .mat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .mat-card:hover{border-color:rgba(0,212,255,.25);box-shadow:0 0 18px rgba(0,212,255,.04)}
+  .mat-card.t2::before{background:#ff6b35}
+  .mat-card.t3::before{background:#7fff6b}
+  .mat-card.t4::before{background:#c47fff}
+  .card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .card-icon{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+  .mat-card.t2 .card-icon{background:rgba(255,107,53,.1)}
+  .mat-card.t3 .card-icon{background:rgba(127,255,107,.1)}
+  .mat-card.t4 .card-icon{background:rgba(196,127,255,.1)}
+  .card-title{font-size:13px;font-weight:700;line-height:1.3;flex:1}
+  .card-badge{font-family:var(--font-m);font-size:9px;padding:3px 7px;border-radius:10px;
+    border:1px solid;text-transform:uppercase;white-space:nowrap}
+  .t2 .card-badge{color:#ff6b35;border-color:rgba(255,107,53,.3);background:rgba(255,107,53,.08)}
+  .t3 .card-badge{color:#7fff6b;border-color:rgba(127,255,107,.3);background:rgba(127,255,107,.08)}
+  .t4 .card-badge{color:#c47fff;border-color:rgba(196,127,255,.3);background:rgba(196,127,255,.08)}
+  .wall-info{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .sld-sec{margin-bottom:12px}
+  .sld-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .sld-lbl{font-family:var(--font-m);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+  .sld-val{font-family:var(--font-m);font-size:11px;font-weight:500}
+  .t2 .sld-val{color:#ff6b35} .t3 .sld-val{color:#7fff6b} .t4 .sld-val{color:#c47fff}
+  .cost-line{display:flex;justify-content:space-between;align-items:center;
+    padding:8px 12px;background:var(--surface2);border-radius:5px;margin-top:10px}
+  .cost-lbl{font-family:var(--font-m);font-size:9px;color:var(--muted);text-transform:uppercase}
+  .cost-val{font-family:var(--font-m);font-size:13px;font-weight:600}
+  .t2 .cost-val{color:#ff6b35} .t3 .cost-val{color:#7fff6b} .t4 .cost-val{color:#c47fff}
+
+  /* section dot colors */
+  .t1 .sec-dot{background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,.6)}
+  .t2 .sec-dot{background:#ff6b35;box-shadow:0 0 6px rgba(255,107,53,.6)}
+  .t3 .sec-dot{background:#7fff6b;box-shadow:0 0 6px rgba(127,255,107,.6)}
+  .t4 .sec-dot{background:#c47fff;box-shadow:0 0 6px rgba(196,127,255,.6)}
+
+  /* SUMMARY TABLE */
+  .sum-tbl{width:100%;border-collapse:collapse;margin-bottom:28px;font-family:var(--font-m);font-size:12px}
+  .sum-tbl th{text-align:left;padding:9px 14px;background:var(--surface2);border-bottom:1px solid var(--border);
+    color:var(--muted);font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:500}
+  .sum-tbl td{padding:9px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+  .sum-tbl tr:hover td{background:rgba(255,255,255,.015)}
+  .sum-tbl .tot-row td{font-weight:700;font-size:12px;border-top:1px solid var(--border);background:rgba(0,212,255,.04)}
+  .tr{text-align:right} .tc{text-align:center}
+
+  /* FOOTER */
+  footer{position:relative;z-index:10;margin:32px 40px 20px;padding-top:20px;
+    border-top:1px solid var(--border);display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:10px}
+  .fn{font-family:var(--font-m);font-size:10px;color:var(--muted)}
+  .fn strong{color:var(--accent)}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:640px){header,.banner,.tab-nav,.panel,footer{margin-left:14px;margin-right:14px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <div class="logo-tag">◈ Dashboard BIM · Revit 2024</div>
+    <h1>Materiais <span>&amp;</span> Custos</h1>
+    <div class="proj">1-Casa-P-arquitetura · Tabelas B1 → B4</div>
+  </div>
+  <div class="hdr-meta">
+    <div class="pill"><strong>95,28</strong> m² paredes</div>
+    <div class="pill"><strong id="hdr-pisos">—</strong> m² pisos</div>
+    <div class="pill"><strong>8</strong> janelas</div>
+    <div class="pill"><strong>4</strong> portas</div>
+    <div class="pill">Total: <strong id="hdr-total" style="color:var(--accent)">—</strong></div>
+  </div>
+</header>
+
+<div class="banner">
+  <div class="stat">
+    <div class="stat-l">B1 — Paredes</div>
+    <div class="stat-v" id="tot-b1" style="color:var(--accent)">R$ —</div>
+    <div class="stat-s">95,28 m² · consolidado</div>
+  </div>
+  <div class="stat">
+    <div class="stat-l">B2 — Pisos</div>
+    <div class="stat-v" id="tot-b2" style="color:var(--accent2)">R$ —</div>
+    <div class="stat-s" id="tot-b2-area">— m² total</div>
+  </div>
+  <div class="stat">
+    <div class="stat-l">B3 — Janelas</div>
+    <div class="stat-v" id="tot-b3" style="color:var(--accent3)">R$ —</div>
+    <div class="stat-s">8 unidades · 4 tipos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-l">B4 — Portas</div>
+    <div class="stat-v" id="tot-b4" style="color:var(--accent4)">R$ —</div>
+    <div class="stat-s">4 unidades · 2 tipos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-l">▸ TOTAL GERAL</div>
+    <div class="stat-v" id="tot-geral" style="color:#fff;font-size:28px">R$ —</div>
+    <div class="stat-s">materiais + esquadrias</div>
+  </div>
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active t1" onclick="showTab('b1',this)">B1 — Paredes <span class="tab-badge">10 elem.</span></button>
+  <button class="tab-btn t2" onclick="showTab('b2',this)">B2 — Pisos <span class="tab-badge">9 elem.</span></button>
+  <button class="tab-btn t3" onclick="showTab('b3',this)">B3 — Janelas <span class="tab-badge">8 unid.</span></button>
+  <button class="tab-btn t4" onclick="showTab('b4',this)">B4 — Portas <span class="tab-badge">4 unid.</span></button>
+</div>
+
+<!-- PANEL B1 -->
+<div class="panel active t1" id="panel-b1">
+  <div class="sec-hdr"><div class="sec-dot t1"></div><div class="sec-ttl">B1 · Materiais de Paredes — 10 elementos · 95,28 m² (consolidado)</div></div>
+  <div id="b1-container"></div>
+  <div class="sec-hdr" style="margin-top:6px"><div class="sec-dot t1"></div><div class="sec-ttl">Resumo consolidado — Paredes</div></div>
+  <table class="sum-tbl" id="sum-b1"></table>
+</div>
+
+<!-- PANEL B2 -->
+<div class="panel t2" id="panel-b2">
+  <div class="sec-hdr"><div class="sec-dot t2"></div><div class="sec-ttl">B2 · Materiais de Pisos — 4 tipos · 9 elementos</div></div>
+  <div class="cards-grid" id="cards-b2"></div>
+  <div class="sec-hdr" style="margin-top:6px"><div class="sec-dot t2"></div><div class="sec-ttl">Resumo consolidado — Pisos</div></div>
+  <table class="sum-tbl" id="sum-b2"></table>
+</div>
+
+<!-- PANEL B3 -->
+<div class="panel t3" id="panel-b3">
+  <div class="sec-hdr"><div class="sec-dot t3"></div><div class="sec-ttl">B3 · Janelas — 4 tipos · 8 unidades</div></div>
+  <div class="cards-grid" id="cards-b3"></div>
+  <div class="sec-hdr" style="margin-top:6px"><div class="sec-dot t3"></div><div class="sec-ttl">Resumo consolidado — Janelas</div></div>
+  <table class="sum-tbl" id="sum-b3"></table>
+</div>
+
+<!-- PANEL B4 -->
+<div class="panel t4" id="panel-b4">
+  <div class="sec-hdr"><div class="sec-dot t4"></div><div class="sec-ttl">B4 · Portas — 2 tipos · 4 unidades</div></div>
+  <div class="cards-grid" id="cards-b4"></div>
+  <div class="sec-hdr" style="margin-top:6px"><div class="sec-dot t4"></div><div class="sec-ttl">Resumo consolidado — Portas</div></div>
+  <table class="sum-tbl" id="sum-b4"></table>
+</div>
+
+<footer>
+  <div class="fn">Projeto: <strong>1-Casa-P-arquitetura</strong> · Revit + Claude AI · Dados extraídos das tabelas B1→B4</div>
+  <div class="fn">Arraste os sliders · Edite dimensões do bloco para recalcular quantidades</div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════
+
+// B1 — áreas consolidadas
+// Cerâmica/Tinta: 30.22 m²  (chapisco×1, emboço×1, reboco×1, tinta×1, cerâmica×1)
+// Tinta/Tinta:    65.06 m²  (chapisco×2, emboço×2, reboco×2, tinta×2)
+const W_TOT = 95.28;                          // m² total alvenaria
+const W_CER = 30.22;                          // m² com cerâmica (1 face)
+const W_PIN = 30.22*1 + 65.06*2;             // 160.34 m² faces com tinta/massa
+
+// 9 materiais — step 0.5, min 1 para todos
+const wallMats = [
+  {id:'wm0', nome:'Bloco/Tijolo',          un:'unid',    emb:1,  rend:null, tipo:'bloco', val:111.50, min:1, max:500,  step:0.5},
+  {id:'wm1', nome:'Cimento CPII-32',       un:'sc 50kg', emb:50, rend:null, tipo:'aglom', val:32.00,  min:1, max:120,  step:0.5},
+  {id:'wm2', nome:'Cal',                   un:'sc 20kg', emb:20, rend:null, tipo:'aglom', val:30.00,  min:1, max:120,  step:0.5},
+  {id:'wm3', nome:'Areia',                 un:'m³',      emb:1,  rend:null, tipo:'aglom', val:150.00, min:1, max:600,  step:0.5},
+  {id:'wm4', nome:'AC II',                 un:'sc 20kg', emb:20, rend:6,    tipo:'face',  face:'cer', val:25.00,  min:1, max:100, step:0.5},
+  {id:'wm5', nome:'Cerâmica',              un:'cx',      emb:1,  rend:2.1,  tipo:'face',  face:'cer', val:45.00,  min:1, max:240, step:0.5},
+  {id:'wm6', nome:'Massa PVA / Acrílica',  un:'lt 18L',  emb:18, rend:60,   tipo:'face',  face:'pin', val:60.00,  min:1, max:300, step:0.5},
+  {id:'wm7', nome:'Tinta',                 un:'lt 18L',  emb:18, rend:70,   tipo:'face',  face:'pin', val:300.00, min:1, max:1000,step:0.5},
+  {id:'wm8', nome:'Massa Textura Acrílica',un:'kg',      emb:1,  rend:2.5,  tipo:'face',  face:'pin', val:18.00,  min:1, max:80,  step:0.5},
+];
+
+// B2
+const floorTypes = [
+  {id:'f1', nome:'Piso Térreo Banheiro Box', area:1.53, mats:[
+    {nome:'Brita',             un:'m³',      val:150, esp:0.04,             min:1, max:250, step:0.5},
+    {nome:'Concreto',          un:'m³',      val:700, esp:0.04, conc:true,  min:1, max:900, step:0.5},
+    {nome:'Cimento CPII-32',   un:'sc 50kg', val:32,  esp:0.02, tc:1,ta:4, min:1, max:120, step:0.5},
+    {nome:'AC II',             un:'sc 20kg', val:25,  rend:6,               min:1, max:50,  step:0.5},
+    {nome:'Cerâmica',          un:'cx',      val:45,  rend:1.8,             min:1, max:120, step:0.5},
+  ]},
+  {id:'f2', nome:'Piso Térreo Banheiro', area:6.93, mats:[
+    {nome:'Brita',                  un:'m³',      val:150, esp:0.04,             min:1, max:250, step:0.5},
+    {nome:'Concreto Usinado',        un:'m³',      val:700, esp:0.06, conc:true,  min:1, max:900, step:0.5},
+    {nome:'Cimento (contrapiso)',    un:'sc 50kg', val:32,  esp:0.04, tc:1,ta:4, min:1, max:120, step:0.5},
+    {nome:'AC II',                   un:'sc 20kg', val:25,  rend:6,               min:1, max:50,  step:0.5},
+    {nome:'Cerâmica',                un:'cx',      val:45,  rend:1.8,             min:1, max:120, step:0.5},
+  ]},
+  {id:'f3', nome:'Piso Cimento Queimado', area:15.26, mats:[
+    {nome:'Brita',               un:'m³',      val:150, esp:0.04,             min:1, max:250, step:0.5},
+    {nome:'Concreto Usinado',    un:'m³',      val:700, esp:0.06, conc:true,  min:1, max:900, step:0.5},
+    {nome:'Cimento (contrapiso)',un:'sc 50kg', val:32,  esp:0.04, tc:1,ta:4, min:1, max:120, step:0.5},
+  ]},
+  {id:'f4', nome:'Piso Laminado', area:9.09, mats:[
+    {nome:'Brita',               un:'m³',      val:150, esp:0.04,             min:1, max:250, step:0.5},
+    {nome:'Concreto Usinado',    un:'m³',      val:700, esp:0.06, conc:true,  min:1, max:900, step:0.5},
+    {nome:'Cimento (contrapiso)',un:'sc 50kg', val:32,  esp:0.04, tc:1,ta:4, min:1, max:120, step:0.5},
+    {nome:'Laminado',            un:'cx',      val:46,  rend:2.1,             min:1, max:120, step:0.5},
+  ]},
+];
+
+// B3
+const winTypes = [
+  {id:'j1', nome:'Basculante 80×60',         fam:'Travessa horizontal',       qtd:2, val:117.50, min:1, max:300, step:0.5, dim:'80×60 cm',   pt:'160 cm'},
+  {id:'j2', nome:'Janela Correr 2P 120×150', fam:'Janela correr 2 Painéis',  qtd:3, val:100.00, min:1, max:350, step:0.5, dim:'120×150 cm', pt:'90 cm'},
+  {id:'j3', nome:'Janela Correr 2P 120×120', fam:'Janela correr 2 Painéis',  qtd:1, val:120.00, min:1, max:350, step:0.5, dim:'120×120 cm', pt:'90 cm'},
+  {id:'j4', nome:'Basculante 60×50',         fam:'Travessa horizontal',       qtd:2, val:117.50, min:1, max:300, step:0.5, dim:'60×50 cm',   pt:'160 cm'},
+];
+
+// B4
+const doorTypes = [
+  {id:'p1', nome:'Porta 80×210', fam:'Porta única c/ revestimento', qtd:2, val:100.00, min:1, max:400, step:0.5, dim:'80×210 cm'},
+  {id:'p2', nome:'Porta 70×210', fam:'Porta única c/ revestimento', qtd:2, val:100.00, min:1, max:400, step:0.5, dim:'70×210 cm'},
+];
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+const S = {p:{}, bloco:{h:9, c:19, l:14}};
+let totB1=0, totB2=0, totB3=0, totB4=0;
+
+function ip(id, def){ if(!(id in S.p)) S.p[id]=def; }
+function gp(id, def){ return S.p[id]!==undefined ? S.p[id] : def; }
+
+function getDims(){
+  return {
+    h: parseFloat(S.bloco.h||9)/100,
+    c: parseFloat(S.bloco.c||19)/100,
+    l: parseFloat(S.bloco.l||14)/100,
+  };
+}
+
+// ══════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════
+const fmt  = v => 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtN = v => v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct  = (v,mn,mx) => Math.max(0,Math.min(100,(v-mn)/(mx-mn)*100)).toFixed(1);
+
+function calcArg(area, faces, esp, tC, tCal, tA){
+  const vol=area*esp*faces, tot=tC+(tCal||0)+tA;
+  return { kgC:vol*tC/tot*1400, kgCal:tCal?vol*tCal/tot*600:0, m3A:vol*tA/tot };
+}
+
+function blocoQty(){
+  const d=getDims();
+  return Math.ceil(W_TOT/((d.h+0.01)*(d.c+0.01))*1.05);
+}
+
+// ══════════════════════════════════════════════
+// GLOBAL SLIDER HANDLER
+// ══════════════════════════════════════════════
+function onSlider(sid, raw, mn, mx){
+  const v=parseFloat(raw);
+  S.p[sid]=v;
+  const el=document.getElementById('sl-'+sid);
+  if(el) el.style.setProperty('--pct', pct(v,mn,mx)+'%');
+  const sv=document.getElementById('sv-'+sid);
+  if(sv) sv.textContent=fmt(v);
+  updAll();
+}
+
+function setDim(field, val){
+  S.bloco[field]=parseFloat(val)||0;
+  const q=blocoQty();
+  const el=document.getElementById('bqty');
+  if(el) el.innerHTML='⟶ Qtd: <strong>'+q.toLocaleString('pt-BR')+'</strong> unid';
+  updAll();
+}
+
+function updAll(){ updateB1(); updateB2(); updateB3(); updateB4(); updateTotals(); }
+
+// ══════════════════════════════════════════════
+// BUILD B1 — unified horizontal panel
+// ══════════════════════════════════════════════
+function buildB1(){
+  const d=getDims(), q=blocoQty();
+  let html=`<div class="wp">
+  <div class="wp-head">
+    <div class="wp-head-title">🧱 Paredes — dados consolidados</div>
+    <div class="wp-chips">
+      <div class="chip">Total: <strong>95,28 m²</strong></div>
+      <div class="chip">Cerâmica/Tinta: <strong>30,22 m²</strong></div>
+      <div class="chip">Tinta/Tinta: <strong>65,06 m²</strong></div>
+      <div class="chip">Faces tinta: <strong>160,34 m²</strong></div>
+      <div class="chip">Face cerâmica: <strong>30,22 m²</strong></div>
+    </div>
+    <div class="wp-total" id="cost-b1">R$ —</div>
+  </div>
+  <div class="wp-bloco">
+    <div class="bloco-lbl">🧱 Bloco/Tijolo — dimensões (cm)</div>
+    <div class="dim-row">
+      <div class="dim-g"><div class="dim-l">Altura</div>
+        <input class="dim-i" type="number" value="${d.h*100}" min="3" max="30" step="0.5" oninput="setDim('h',this.value)"></div>
+      <div class="dim-sep">×</div>
+      <div class="dim-g"><div class="dim-l">Comprimento</div>
+        <input class="dim-i" type="number" value="${d.c*100}" min="5" max="60" step="0.5" oninput="setDim('c',this.value)"></div>
+      <div class="dim-sep">×</div>
+      <div class="dim-g"><div class="dim-l">Largura</div>
+        <input class="dim-i" type="number" value="${d.l*100}" min="5" max="30" step="0.5" oninput="setDim('l',this.value)"></div>
+    </div>
+    <div class="bloco-qty" id="bqty">⟶ Qtd: <strong>${q.toLocaleString('pt-BR')}</strong> unid</div>
+  </div>
+  <div class="wp-grid">`;
+
+  wallMats.forEach(m=>{
+    ip(m.id, m.val);
+    const v=gp(m.id,m.val), p=pct(v,m.min,m.max);
+    html+=`<div class="wp-cell">
+      <div class="wc-name">${m.nome}</div>
+      <div class="wc-unit">por ${m.un}</div>
+      <div class="wc-val" id="sv-${m.id}">${fmt(v)}</div>
+      <input type="range" class="t1" id="sl-${m.id}"
+        min="${m.min}" max="${m.max}" step="${m.step}" value="${v}" style="--pct:${p}%"
+        oninput="onSlider('${m.id}',this.value,${m.min},${m.max})">
+      <div class="wc-qty" id="qty-${m.id}">—</div>
+    </div>`;
+  });
+
+  html+=`</div></div>`;
+  document.getElementById('b1-container').innerHTML=html;
+  updateB1();
+}
+
+function updateB1(){
+  // pre-compute mortar over all layers / both wall types
+  let kgC=0, kgCal=0, m3A=0;
+  [
+    {a:30.22,f:1,e:0.01,tC:1,tCal:0,tA:4},  // chapisco w1
+    {a:30.22,f:1,e:0.02,tC:1,tCal:2,tA:8},  // emboço w1
+    {a:30.22,f:1,e:0.02,tC:1,tCal:2,tA:6},  // reboco w1
+    {a:30.22,f:1,e:0.02,tC:1,tCal:2,tA:8},  // assent. w1
+    {a:65.06,f:2,e:0.01,tC:1,tCal:0,tA:4},  // chapisco w2
+    {a:65.06,f:2,e:0.02,tC:1,tCal:2,tA:8},  // emboço w2
+    {a:65.06,f:2,e:0.02,tC:1,tCal:2,tA:6},  // reboco w2
+    {a:65.06,f:1,e:0.02,tC:1,tCal:2,tA:8},  // assent. w2
+  ].forEach(l=>{
+    const r=calcArg(l.a,l.f,l.e,l.tC,l.tCal,l.tA);
+    kgC+=r.kgC; kgCal+=r.kgCal; m3A+=r.m3A;
+  });
+
+  let grand=0;
+  const rows=[];
+
+  wallMats.forEach(m=>{
+    const price=gp(m.id,m.val);
+    let qty=0, cost=0, ql='—';
+
+    if(m.tipo==='bloco'){
+      const d=getDims();
+      qty=Math.ceil(W_TOT/((d.h+0.01)*(d.c+0.01))*1.05);
+      cost=qty*price; ql=qty.toLocaleString('pt-BR')+' unid';
+      const bq=document.getElementById('bqty');
+      if(bq) bq.innerHTML='⟶ Qtd: <strong>'+qty.toLocaleString('pt-BR')+'</strong> unid';
+
+    } else if(m.tipo==='aglom'){
+      if(m.nome.includes('Cimento')){
+        qty=Math.ceil(kgC/m.emb); cost=qty*price; ql=qty+' sc';
+      } else if(m.nome.includes('Cal')){
+        qty=Math.ceil(kgCal/m.emb); cost=qty*price; ql=qty+' sc';
+      } else if(m.nome.includes('Areia')){
+        qty=Math.ceil(m3A*10)/10; cost=qty*price; ql=fmtN(qty)+' m³';
+      }
+
+    } else if(m.tipo==='face'){
+      const fa=m.face==='cer'?W_CER:W_PIN;
+      if(m.rend>0){
+        if(m.nome.includes('Cerâmica')){
+          qty=Math.ceil(fa/m.rend*1.1); cost=qty*price; ql=qty+' cx';
+        } else if(m.nome.includes('AC II')){
+          qty=Math.ceil(fa/m.rend); cost=qty*price; ql=qty+' sc';
+        } else if(m.nome.includes('Textura')){
+          qty=Math.ceil(fa/m.rend); cost=qty*price; ql=qty+' kg';
+        } else {
+          // Massa PVA / Tinta — embalagens
+          qty=Math.ceil(fa/m.rend/m.emb); cost=qty*price; ql=qty+' emb.';
+        }
+      }
+    }
+
+    grand+=cost;
+    const qEl=document.getElementById('qty-'+m.id);
+    if(qEl) qEl.textContent=ql;
+    if(qty>0) rows.push({nome:m.nome, un:m.un, qty:ql, price, cost});
+  });
+
+  const cEl=document.getElementById('cost-b1');
+  if(cEl) cEl.textContent=fmt(grand);
+
+  // summary table
+  const tbl=document.getElementById('sum-b1');
+  if(!tbl) return;
+  const d=getDims();
+  let t=`<thead><tr><th>Material</th><th>Unidade</th><th class="tr">Quantidade</th><th class="tr">Preço Unit.</th><th class="tr">Custo</th></tr></thead><tbody>`;
+  rows.forEach(r=> t+=`<tr><td>${r.nome}</td><td style="color:var(--muted)">${r.un}</td>
+    <td class="tr">${r.qty}</td>
+    <td class="tr" style="color:var(--muted)">${fmt(r.price)}</td>
+    <td class="tr" style="color:var(--accent)">${fmt(r.cost)}</td></tr>`);
+  t+=`</tbody><tfoot><tr class="tot-row">
+    <td colspan="4"><strong>TOTAL B1 — PAREDES</strong>
+      <span style="color:var(--muted);font-size:9px;margin-left:10px">
+        bloco ${Math.round(d.h*100)}×${Math.round(d.c*100)}×${Math.round(d.l*100)} cm · 95,28 m²
+      </span></td>
+    <td class="tr"><strong>${fmt(grand)}</strong></td></tr></tfoot>`;
+  tbl.innerHTML=t;
+  document.getElementById('tot-b1').textContent=fmt(grand);
+  totB1=grand;
+}
+
+// ══════════════════════════════════════════════
+// BUILD B2
+// ══════════════════════════════════════════════
+function buildB2(){
+  const con=document.getElementById('cards-b2');
+  con.innerHTML='';
+  floorTypes.forEach((ft,fi)=>{
+    const card=document.createElement('div');
+    card.className='mat-card t2'; card.style.animationDelay=fi*0.07+'s';
+    let h=`<div class="card-header">
+      <div class="card-icon t2">🏠</div>
+      <div class="card-title">${ft.nome}</div>
+      <span class="card-badge t2">Piso</span></div>
+      <div class="wall-info"><div class="chip">Área: <strong>${fmtN(ft.area)} m²</strong></div></div>`;
+    ft.mats.forEach((mat,mi)=>{
+      const sid=`b2-${ft.id}-${mi}`; ip(sid,mat.val);
+      const v=gp(sid,mat.val), p=pct(v,mat.min,mat.max);
+      h+=`<div class="sld-sec"><div class="sld-row">
+        <span class="sld-lbl">${mat.nome}</span>
+        <span class="sld-val t2" id="sv-${sid}">${fmt(v)} / ${mat.un}</span></div>
+        <input type="range" class="t2" id="sl-${sid}" min="${mat.min}" max="${mat.max}" step="${mat.step}" value="${v}" style="--pct:${p}%"
+          oninput="onSlider('${sid}',this.value,${mat.min},${mat.max})"></div>`;
+    });
+    h+=`<div class="cost-line"><span class="cost-lbl">💰 Custo estimado</span><span class="cost-val t2" id="cost-${ft.id}">R$ —</span></div>`;
+    card.innerHTML=h; con.appendChild(card);
+  });
+  updateB2();
+}
+
+function updateB2(){
+  let grand=0; const rows=[];
+  floorTypes.forEach(ft=>{
+    let sub=0; const mats=[];
+    ft.mats.forEach((mat,mi)=>{
+      const sid=`b2-${ft.id}-${mi}`, price=gp(sid,mat.val);
+      let qty=0, cost=0, ql='';
+      if(mat.conc){
+        qty=Math.round(ft.area*mat.esp*1000)/1000; cost=qty*price; ql=fmtN(qty)+' m³';
+      } else if(mat.tc){
+        const vol=ft.area*mat.esp, tot=mat.tc+mat.ta;
+        qty=Math.ceil(vol*mat.tc/tot*1400/50); cost=qty*price; ql=qty+' sc';
+      } else if(mat.esp){
+        qty=Math.round(ft.area*mat.esp*1000)/1000; cost=qty*price; ql=fmtN(qty)+' m³';
+      } else if(mat.rend){
+        qty=Math.ceil(ft.area/mat.rend*1.1); cost=qty*price; ql=qty+' cx';
+      }
+      sub+=cost;
+      const sv=document.getElementById('sv-'+sid);
+      if(sv) sv.textContent=fmt(price)+' / '+mat.un;
+      if(qty>0) mats.push({nome:mat.nome, qty:ql, cost});
+    });
+    const cEl=document.getElementById('cost-'+ft.id);
+    if(cEl) cEl.textContent=fmt(sub);
+    grand+=sub; rows.push({tipo:ft.nome, area:ft.area, mats, sub});
+  });
+  const tbl=document.getElementById('sum-b2');
+  let t=`<thead><tr><th>Tipo / Material</th><th>Área</th><th class="tr">Qtd</th><th class="tr">Custo</th></tr></thead><tbody>`;
+  rows.forEach(r=>{
+    t+=`<tr><td colspan="4" style="padding:5px 14px;color:var(--accent2);font-size:10px;font-weight:700;background:rgba(255,107,53,.04)">${r.tipo}</td></tr>`;
+    r.mats.forEach(m=> t+=`<tr><td style="padding-left:24px">${m.nome}</td><td>${fmtN(r.area)}</td><td class="tr">${m.qty}</td><td class="tr" style="color:var(--accent2)">${fmt(m.cost)}</td></tr>`);
+    t+=`<tr style="font-weight:700"><td colspan="3" class="tr" style="color:var(--muted)">Subtotal ${r.tipo}</td><td class="tr" style="color:var(--accent2)">${fmt(r.sub)}</td></tr>`;
+  });
+  const ta=floorTypes.reduce((s,f)=>s+f.area,0);
+  t+=`</tbody><tfoot><tr class="tot-row"><td colspan="3"><strong>TOTAL B2 — PISOS</strong></td><td class="tr"><strong>${fmt(grand)}</strong></td></tr></tfoot>`;
+  tbl.innerHTML=t;
+  document.getElementById('tot-b2').textContent=fmt(grand);
+  document.getElementById('hdr-pisos').textContent=fmtN(ta);
+  document.getElementById('tot-b2-area').textContent=fmtN(ta)+' m² total';
+  totB2=grand;
+}
+
+// ══════════════════════════════════════════════
+// BUILD B3
+// ══════════════════════════════════════════════
+function buildB3(){
+  const con=document.getElementById('cards-b3'); con.innerHTML='';
+  winTypes.forEach((wn,wi)=>{
+    const card=document.createElement('div');
+    card.className='mat-card t3'; card.style.animationDelay=wi*0.07+'s';
+    const sid='b3-'+wn.id; ip(sid,wn.val);
+    const v=gp(sid,wn.val), p=pct(v,wn.min,wn.max);
+    card.innerHTML=`<div class="card-header">
+      <div class="card-icon t3">🪟</div>
+      <div class="card-title">${wn.nome}</div>
+      <span class="card-badge t3">${wn.qtd} unid.</span></div>
+      <div class="wall-info">
+        <div class="chip">Dim: <strong>${wn.dim}</strong></div>
+        <div class="chip">Peitoril: <strong>${wn.pt}</strong></div>
+        <div class="chip">Família: <strong>${wn.fam}</strong></div></div>
+      <div class="sld-sec"><div class="sld-row">
+        <span class="sld-lbl">Valor Unitário</span>
+        <span class="sld-val t3" id="sv-${sid}">${fmt(v)} / unid</span></div>
+        <input type="range" class="t3" id="sl-${sid}" min="${wn.min}" max="${wn.max}" step="${wn.step}" value="${v}" style="--pct:${p}%"
+          oninput="onSlider('${sid}',this.value,${wn.min},${wn.max})"></div>
+      <div class="cost-line"><span class="cost-lbl">💰 ${wn.qtd} × valor unit.</span>
+        <span class="cost-val t3" id="cost-${wn.id}">${fmt(v*wn.qtd)}</span></div>`;
+    con.appendChild(card);
+  });
+  updateB3();
+}
+
+function updateB3(){
+  let grand=0; const rows=[];
+  winTypes.forEach(wn=>{
+    const sid='b3-'+wn.id, price=gp(sid,wn.val), cost=price*wn.qtd;
+    grand+=cost;
+    const cEl=document.getElementById('cost-'+wn.id); if(cEl) cEl.textContent=fmt(cost);
+    const sv=document.getElementById('sv-'+sid); if(sv) sv.textContent=fmt(price)+' / unid';
+    rows.push({nome:wn.nome, dim:wn.dim, qtd:wn.qtd, price, cost});
+  });
+  const tbl=document.getElementById('sum-b3');
+  let t=`<thead><tr><th>Janela</th><th>Dim.</th><th class="tc">Qtd</th><th class="tr">Unit.</th><th class="tr">Total</th></tr></thead><tbody>`;
+  rows.forEach(r=> t+=`<tr><td>${r.nome}</td><td>${r.dim}</td><td class="tc">${r.qtd}</td>
+    <td class="tr">${fmt(r.price)}</td><td class="tr" style="color:var(--accent3)">${fmt(r.cost)}</td></tr>`);
+  t+=`</tbody><tfoot><tr class="tot-row"><td colspan="4"><strong>TOTAL B3 — JANELAS</strong></td>
+    <td class="tr"><strong>${fmt(grand)}</strong></td></tr></tfoot>`;
+  tbl.innerHTML=t;
+  document.getElementById('tot-b3').textContent=fmt(grand);
+  totB3=grand;
+}
+
+// ══════════════════════════════════════════════
+// BUILD B4
+// ══════════════════════════════════════════════
+function buildB4(){
+  const con=document.getElementById('cards-b4'); con.innerHTML='';
+  doorTypes.forEach((dr,di)=>{
+    const card=document.createElement('div');
+    card.className='mat-card t4'; card.style.animationDelay=di*0.07+'s';
+    const sid='b4-'+dr.id; ip(sid,dr.val);
+    const v=gp(sid,dr.val), p=pct(v,dr.min,dr.max);
+    card.innerHTML=`<div class="card-header">
+      <div class="card-icon t4">🚪</div>
+      <div class="card-title">${dr.nome}</div>
+      <span class="card-badge t4">${dr.qtd} unid.</span></div>
+      <div class="wall-info">
+        <div class="chip">Dim: <strong>${dr.dim}</strong></div>
+        <div class="chip">Família: <strong>${dr.fam}</strong></div></div>
+      <div class="sld-sec"><div class="sld-row">
+        <span class="sld-lbl">Valor Unitário</span>
+        <span class="sld-val t4" id="sv-${sid}">${fmt(v)} / unid</span></div>
+        <input type="range" class="t4" id="sl-${sid}" min="${dr.min}" max="${dr.max}" step="${dr.step}" value="${v}" style="--pct:${p}%"
+          oninput="onSlider('${sid}',this.value,${dr.min},${dr.max})"></div>
+      <div class="cost-line"><span class="cost-lbl">💰 ${dr.qtd} × valor unit.</span>
+        <span class="cost-val t4" id="cost-${dr.id}">${fmt(v*dr.qtd)}</span></div>`;
+    con.appendChild(card);
+  });
+  updateB4();
+}
+
+function updateB4(){
+  let grand=0; const rows=[];
+  doorTypes.forEach(dr=>{
+    const sid='b4-'+dr.id, price=gp(sid,dr.val), cost=price*dr.qtd;
+    grand+=cost;
+    const cEl=document.getElementById('cost-'+dr.id); if(cEl) cEl.textContent=fmt(cost);
+    const sv=document.getElementById('sv-'+sid); if(sv) sv.textContent=fmt(price)+' / unid';
+    rows.push({nome:dr.nome, dim:dr.dim, qtd:dr.qtd, price, cost});
+  });
+  const tbl=document.getElementById('sum-b4');
+  let t=`<thead><tr><th>Porta</th><th>Dim.</th><th class="tc">Qtd</th><th class="tr">Unit.</th><th class="tr">Total</th></tr></thead><tbody>`;
+  rows.forEach(r=> t+=`<tr><td>${r.nome}</td><td>${r.dim}</td><td class="tc">${r.qtd}</td>
+    <td class="tr">${fmt(r.price)}</td><td class="tr" style="color:var(--accent4)">${fmt(r.cost)}</td></tr>`);
+  t+=`</tbody><tfoot><tr class="tot-row"><td colspan="4"><strong>TOTAL B4 — PORTAS</strong></td>
+    <td class="tr"><strong>${fmt(grand)}</strong></td></tr></tfoot>`;
+  tbl.innerHTML=t;
+  document.getElementById('tot-b4').textContent=fmt(grand);
+  totB4=grand;
+}
+
+// ══════════════════════════════════════════════
+// TOTALS & TABS
+// ══════════════════════════════════════════════
+function updateTotals(){
+  const t=totB1+totB2+totB3+totB4;
+  document.getElementById('tot-geral').textContent=fmt(t);
+  document.getElementById('hdr-total').textContent=fmt(t);
+}
+
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+buildB1(); buildB2(); buildB3(); buildB4(); updateTotals();
+</script>
+</body>
+</html>
