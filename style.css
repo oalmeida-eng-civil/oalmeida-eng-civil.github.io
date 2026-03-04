@@ -1174,8 +1174,8 @@ footer {
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: green;
+  background: blue;
+  color: white;
   text-decoration: none;
   border-radius: 6px;
   font-weight: 500;
@@ -1187,7 +1187,7 @@ footer {
 }
 
 .btn-dashboard:hover {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  background: green;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
