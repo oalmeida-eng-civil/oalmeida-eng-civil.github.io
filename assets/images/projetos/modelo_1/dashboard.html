@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Cálculo do Custo dos Materiais do Projeto — 1-Casa-P-arquitetura</title>
 <style>
   :root {
@@ -104,7 +104,7 @@
   .sub-qty strong{font-size:14px;font-weight:800}
   .t1 .sub-qty strong{color:var(--accent)} .t2 .sub-qty strong{color:var(--accent2)}
 
-  /* sliders grid */
+  /* GRID */
   .wp-grid{display:grid;gap:0}
   .wp-grid.cols-9{grid-template-columns:repeat(9,1fr)}
   .wp-grid.cols-6{grid-template-columns:repeat(6,1fr)}
@@ -125,25 +125,21 @@
   .t1 .wc-val{color:var(--accent)} .t2 .wc-val{color:var(--accent2)}
   .wc-qty{font-size:10px;color:var(--muted);min-height:14px}
 
-  /* range */
-  input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;outline:none;cursor:pointer;margin:2px 0}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;cursor:pointer;transition:transform .15s}
-  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.35)}
-  .t1 input[type=range]{background:linear-gradient(to right,#00d4ff var(--pct,0%),#1a2232 var(--pct,0%))}
-  .t2 input[type=range]{background:linear-gradient(to right,#ff6b35 var(--pct,0%),#1a2232 var(--pct,0%))}
-  .t3 input[type=range]{background:linear-gradient(to right,#7fff6b var(--pct,0%),#1a2232 var(--pct,0%))}
-  .t4 input[type=range]{background:linear-gradient(to right,#c47fff var(--pct,0%),#1a2232 var(--pct,0%))}
-  .t1 input[type=range]::-webkit-slider-thumb{background:#00d4ff;box-shadow:0 0 7px rgba(0,212,255,.7)}
-  .t2 input[type=range]::-webkit-slider-thumb{background:#ff6b35;box-shadow:0 0 7px rgba(255,107,53,.7)}
-  .t3 input[type=range]::-webkit-slider-thumb{background:#7fff6b;box-shadow:0 0 7px rgba(127,255,107,.7)}
-  .t4 input[type=range]::-webkit-slider-thumb{background:#c47fff;box-shadow:0 0 7px rgba(196,127,255,.7)}
-
+  /* CAMPO TEXTO NUMÉRICO (substitui slider) */
+  .price-input{background:var(--bg);border:1px solid var(--border);border-radius:6px;
+    font-family:var(--sans);font-size:13px;font-weight:700;padding:6px 8px;
+    width:100%;text-align:center;color:inherit;outline:none;transition:all 0.2s}
+  .t1 .price-input{color:var(--accent)}.t1 .price-input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(0,212,255,.2)}
+  .t2 .price-input{color:var(--accent2)}.t2 .price-input:focus{border-color:var(--accent2);box-shadow:0 0 0 2px rgba(255,107,53,.2)}
+  .t3 .price-input{color:var(--accent3)}.t3 .price-input:focus{border-color:var(--accent3);box-shadow:0 0 0 2px rgba(127,255,107,.2)}
+  .t4 .price-input{color:var(--accent4)}.t4 .price-input:focus{border-color:var(--accent4);box-shadow:0 0 0 2px rgba(196,127,255,.2)}
+  
   /* rendimento ajustável */
   .rend-row{display:flex;align-items:center;gap:4px;margin-top:1px}
   .rend-lbl{font-size:8px;color:var(--muted);opacity:.8;white-space:nowrap}
   .rend-inp{background:var(--bg);border:1px solid var(--border);border-radius:3px;
     color:var(--accent2);font-family:var(--sans);font-size:10px;font-weight:700;
-    padding:2px 4px;width:46px;text-align:center;outline:none;transition:border-color .2s}
+    padding:2px 4px;width:46px;text-align:center;outline:none}
   .rend-inp:focus{border-color:var(--accent2);box-shadow:0 0 0 2px rgba(255,107,53,.15)}
   .rend-un{font-size:8px;color:var(--muted);opacity:.6;white-space:nowrap}
 
@@ -249,7 +245,7 @@
   <div class="sec-hdr"><div class="sec-dot t1"></div><div class="sec-ttl">Materiais de Paredes — 95,28 m²</div></div>
   <div id="b1-container"></div>
   <div class="sec-hdr" style="margin-top:6px"><div class="sec-dot t1"></div><div class="sec-ttl">Resumo consolidado — Paredes</div></div>
-  <table class="sum-tbl" id="sum-b1"></table>
+  <table class="sum-tbl" id="sum-b1"><tr></table>
 </div>
 
 <!-- B2 -->
@@ -257,7 +253,7 @@
   <div class="sec-hdr"><div class="sec-dot t2"></div><div class="sec-ttl">Materiais de Pisos — 32,81 m²</div></div>
   <div id="b2-container"></div>
   <div class="sec-hdr" style="margin-top:6px"><div class="sec-dot t2"></div><div class="sec-ttl">Resumo consolidado — Pisos</div></div>
-  <table class="sum-tbl" id="sum-b2"></table>
+  <table class="sum-tbl" id="sum-b2"></table></table>
 </div>
 
 <!-- B3 -->
@@ -265,7 +261,7 @@
   <div class="sec-hdr"><div class="sec-dot t3"></div><div class="sec-ttl">Janelas — 4 tipos · 8 unidades</div></div>
   <div class="cards-grid" id="cards-b3"></div>
   <div class="sec-hdr" style="margin-top:6px"><div class="sec-dot t3"></div><div class="sec-ttl">Resumo consolidado — Janelas</div></div>
-  <table class="sum-tbl" id="sum-b3"></table>
+  <table class="sum-tbl" id="sum-b3"></table></table>
 </div>
 
 <!-- B4 -->
@@ -273,23 +269,20 @@
   <div class="sec-hdr"><div class="sec-dot t4"></div><div class="sec-ttl">Portas — 2 tipos · 4 unidades</div></div>
   <div class="cards-grid" id="cards-b4"></div>
   <div class="sec-hdr" style="margin-top:6px"><div class="sec-dot t4"></div><div class="sec-ttl">Resumo consolidado — Portas</div></div>
-  <table class="sum-tbl" id="sum-b4"></table>
+  <table class="sum-tbl" id="sum-b4"></table></table>
 </div>
 
 <footer>
   <div class="fn">Projeto: <strong>Residência Unifamiliar P1</strong></div>
-  <div class="fn">Arraste os sliders · Edite dimensões e espessuras para recalcular quantidades</div>
+  <div class="fn">Digite os preços unitários com vírgula decimal (ex: 12,90)</div>
 </footer>
 
 <script>
 // ════════════════════════════════════════════════════════
 // DADOS
 // ════════════════════════════════════════════════════════
-
-// B1 — PAREDES
-// Cerâmica/Tinta: 30,22 m² | Tinta/Tinta: 65,06 m²
-// Faces c/ tinta: 30,22×1 + 65,06×2 = 160,34 m² | Faces c/ cerâmica: 30,22 m²
 const W_TOT = 95.28, W_CER = 30.22, W_PIN = 30.22 + 65.06*2;
+const F_TOT = 32.81, F_BATH = 1.53+6.93, F_LAM = 9.09;
 
 const wallMats = [
   {id:'wm0', nome:'Bloco/Tijolo',           un:'unidade<br><br>',                  emb:1,  rend:null, tipo:'bloco', val:0, min:0, max:200,  step:0.5},
@@ -303,15 +296,6 @@ const wallMats = [
   {id:'wm8', nome:'Massa Textura Acrílica', un:'balde 25 kg<br>rend. médio = 0.4 m²/kg', rendUn:'m²/kg', emb:25, rend:0.4, tipo:'face', face:'pin', val:0, min:0, max:500, step:0.5, rendAjust:true},
 ];
 
-// B2 — PISOS
-// Banheiro Box 1,53 m² + Banheiro 6,93 m² = 8,46 m² com cerâmica
-// Cimento Queimado 15,26 m² | Laminado 9,09 m²  | TOTAL 32,81 m²
-//
-// Subbase brita + Concreto usinado + Cimento CPII (contrapiso) + Areia: F_TOT = 32,81 m²
-// Cerâmica: F_BATH = 8,46 m² | Laminado: F_LAM = 9,09 m²
-const F_TOT=32.81, F_BATH=1.53+6.93, F_LAM=9.09;
-const espDefault={sub:4, conc:6, cont:4}; // cm
-
 const floorMats = [
   {id:'fm0', nome:'Brita',           un:'m³<br><br>',         emb:1,  rend:null, tipo:'base', camada:'sub',  val:0, min:0, max:300,  step:0.5},
   {id:'fm1', nome:'Concreto Usinado',un:'m³<br><br>',         emb:1,  rend:null, tipo:'base', camada:'conc', val:0, min:0, max:1500, step:0.5},
@@ -322,7 +306,6 @@ const floorMats = [
   {id:'fm5', nome:'Laminado',        un:'caixa<br>rend. médio = 2.1 m²/caixa', rendUn:'m²/cx', emb:1,  rend:2.1, tipo:'rev', area:'lam',  val:0, min:0, max:500, step:0.5, rendAjust:true},
 ];
 
-// B3 — JANELAS
 const winTypes = [
   {id:'j1', nome:'Basculante 80×60',         fam:'Travessa horizontal',     qtd:2, val:0, min:0, max:1000, step:0.5, dim:'80×60 cm',   pt:'160 cm'},
   {id:'j2', nome:'Janela Correr 2P 120×150', fam:'Janela correr 2 Painéis',qtd:3, val:0, min:0, max:1000, step:0.5, dim:'120×150 cm', pt:'90 cm'},
@@ -330,7 +313,6 @@ const winTypes = [
   {id:'j4', nome:'Basculante 60×50',         fam:'Travessa horizontal',     qtd:2, val:0, min:0, max:1000, step:0.5, dim:'60×50 cm',   pt:'160 cm'},
 ];
 
-// B4 — PORTAS
 const doorTypes = [
   {id:'p1', nome:'Porta 80×210', fam:'Porta única c/ revestimento', qtd:2, val:0, min:0, max:4000, step:0.5, dim:'80×210 cm'},
   {id:'p2', nome:'Porta 70×210', fam:'Porta única c/ revestimento', qtd:2, val:0, min:0, max:4000, step:0.5, dim:'70×210 cm'},
@@ -339,21 +321,41 @@ const doorTypes = [
 // ════════════════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════════════════
-const S={p:{}, rend:{}, bloco:{h:9,c:19,l:14}, esp:{...espDefault}};
+const S={p:{}, rend:{}, bloco:{h:9,c:19,l:14}, esp:{sub:4, conc:6, cont:4}};
 let totB1=0, totB2=0, totB3=0, totB4=0;
 
 function ip(id,def){if(!(id in S.p))S.p[id]=def;}
-function gp(id,def){return S.p[id]!==undefined?S.p[id]:def;}
-function getDims(){return{h:parseFloat(S.bloco.h||9)/100,c:parseFloat(S.bloco.c||19)/100,l:parseFloat(S.bloco.l||14)/100};}
+function gp(id){return S.p[id]!==undefined ? S.p[id] : 0;}
+
+// helpers formato BR (vírgula decimal)
+function parseBrMoney(valueStr){
+  if(valueStr === undefined || valueStr === null) return 0;
+  let cleaned = valueStr.toString().replace(/\./g, '').replace(',', '.');
+  cleaned = cleaned.replace(/[^0-9.]/g, '');
+  let num = parseFloat(cleaned);
+  return isNaN(num) ? 0 : num;
+}
+function formatBrMoney(value){
+  return value.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+const fmt = v=>'R$ '+formatBrMoney(v);
+const fmtN = v=>v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+// handlers input text
+function onPriceInput(sid, rawValue, minVal, maxVal, defVal){
+  let num = parseBrMoney(rawValue);
+  if(isNaN(num)) num = defVal !== undefined ? defVal : 0;
+  if(minVal !== undefined && num < minVal) num = minVal;
+  if(maxVal !== undefined && num > maxVal) num = maxVal;
+  S.p[sid] = num;
+  const svSpan = document.getElementById('sv-'+sid);
+  if(svSpan) svSpan.textContent = fmt(num);
+  updAll();
+}
+
+function getDims(){return{h:parseFloat(S.bloco.h||9)/100, c:parseFloat(S.bloco.c||19)/100, l:parseFloat(S.bloco.l||14)/100};}
 function getEsp(k){return(parseFloat(S.esp[k])||0)/100;}
 function getRend(id,def){return S.rend[id]!==undefined?S.rend[id]:def;}
-
-// ════════════════════════════════════════════════════════
-// HELPERS
-// ════════════════════════════════════════════════════════
-const fmt  = v=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const fmtN = v=>v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const pct  = (v,mn,mx)=>Math.max(0,Math.min(100,(v-mn)/(mx-mn)*100)).toFixed(1);
 
 function calcArg(area,faces,esp,tC,tCal,tA){
   const vol=area*esp*faces, tot=tC+(tCal||0)+tA;
@@ -361,16 +363,6 @@ function calcArg(area,faces,esp,tC,tCal,tA){
 }
 function blocoQty(){const d=getDims();return Math.ceil(W_TOT/((d.h+0.01)*(d.c+0.01))*1.05);}
 
-// ════════════════════════════════════════════════════════
-// HANDLERS
-// ════════════════════════════════════════════════════════
-function onSlider(sid,raw,mn,mx){
-  const v=parseFloat(raw);
-  S.p[sid]=v;
-  const el=document.getElementById('sl-'+sid);if(el)el.style.setProperty('--pct',pct(v,mn,mx)+'%');
-  const sv=document.getElementById('sv-'+sid);if(sv)sv.textContent=fmt(v);
-  updAll();
-}
 function setDim(field,val){
   S.bloco[field]=parseFloat(val)||0;
   const q=blocoQty();
@@ -383,56 +375,34 @@ function setRend(id,val,defVal){const v=parseFloat(val);S.rend[id]=(v>0?v:defVal
 function updAll(){updateB1();updateB2();updateB3();updateB4();updateTotals();}
 
 // ════════════════════════════════════════════════════════
-// BUILD B1 — PAREDES
-// ════════════════════════════════════════════════════════
+// BUILD B1 — PAREDES (campo texto)
 function buildB1(){
   const d=getDims(),q=blocoQty();
   let html=`<div class="wp t1">
-  <div class="wp-head">
-    <div class="wp-head-title">Paredes — dados consolidados</div>
-    <div class="wp-chips">
-      <div class="chip">Total: <strong>95,28 m²</strong></div>
-      <div class="chip">Cerâmica/Tinta: <strong>30,22 m²</strong></div>
-      <div class="chip">Tinta/Tinta: <strong>65,06 m²</strong></div>
-      <div class="chip">Faces c/ tinta: <strong>160,34 m²</strong></div>
-      <div class="chip">Faces c/ cerâmica: <strong>30,22 m²</strong></div>
-    </div>
-    <div class="wp-total" id="cost-b1">R$ —</div>
-  </div>
-  <div class="wp-sub t1">
-    <div class="sub-lbl">Bloco/Tijolo — dimensões (cm)</div>
+  <div class="wp-head"><div class="wp-head-title">Paredes — dados consolidados</div>
+    <div class="wp-chips"><div class="chip">Total: <strong>95,28 m²</strong></div><div class="chip">Cerâmica/Tinta: <strong>30,22 m²</strong></div>
+    <div class="chip">Tinta/Tinta: <strong>65,06 m²</strong></div><div class="chip">Faces c/ tinta: <strong>160,34 m²</strong></div>
+    <div class="chip">Faces c/ cerâmica: <strong>30,22 m²</strong></div></div>
+    <div class="wp-total" id="cost-b1">R$ —</div></div>
+  <div class="wp-sub t1"><div class="sub-lbl">Bloco/Tijolo — dimensões (cm)</div>
     <div class="dim-row">
-      <div class="dim-g"><div class="dim-l">Altura</div>
-        <input class="dim-i" type="number" value="${d.h*100}" min="3" max="30" step="0.5" oninput="setDim('h',this.value)"></div>
-      <div class="dim-sep">×</div>
-      <div class="dim-g"><div class="dim-l">Comprimento</div>
-        <input class="dim-i" type="number" value="${d.c*100}" min="5" max="60" step="0.5" oninput="setDim('c',this.value)"></div>
-      <div class="dim-sep">×</div>
-      <div class="dim-g"><div class="dim-l">Largura</div>
-        <input class="dim-i" type="number" value="${d.l*100}" min="5" max="30" step="0.5" oninput="setDim('l',this.value)"></div>
-    </div>
-    <div class="sub-qty t1" id="bqty">⟶ Qtd: <strong>${q.toLocaleString('pt-BR')}</strong> unid</div>
-  </div>
+      <div class="dim-g"><div class="dim-l">Altura</div><input class="dim-i" type="number" value="${d.h*100}" min="3" max="30" step="0.5" oninput="setDim('h',this.value)"></div>
+      <div class="dim-sep">×</div><div class="dim-g"><div class="dim-l">Comprimento</div><input class="dim-i" type="number" value="${d.c*100}" min="5" max="60" step="0.5" oninput="setDim('c',this.value)"></div>
+      <div class="dim-sep">×</div><div class="dim-g"><div class="dim-l">Largura</div><input class="dim-i" type="number" value="${d.l*100}" min="5" max="30" step="0.5" oninput="setDim('l',this.value)"></div>
+    </div><div class="sub-qty t1" id="bqty">⟶ Qtd: <strong>${q.toLocaleString('pt-BR')}</strong> unid</div></div>
   <div class="wp-grid cols-9 t1">`;
-
   wallMats.forEach(m=>{
     ip(m.id,m.val);
-    const v=gp(m.id,m.val),p=pct(v,m.min,m.max);
-    const rendWidget=m.rendAjust?`
-      <div class="rend-row">
-        <span class="rend-lbl">Rend.</span>
-        <input class="rend-inp" type="number" id="ri-${m.id}" value="${m.rend}" min="0.1" step="0.1"
-          oninput="setRend('${m.id}',this.value,${m.rend})">
-        <span class="rend-un">${m.rendUn}</span>
-      </div>`:'';
+    const v=gp(m.id);
+    const rendWidget=m.rendAjust?`<div class="rend-row"><span class="rend-lbl">Rend.</span>
+      <input class="rend-inp" type="number" id="ri-${m.id}" value="${m.rend}" min="0.1" step="0.1" oninput="setRend('${m.id}',this.value,${m.rend})">
+      <span class="rend-un">${m.rendUn}</span></div>`:'';
     html+=`<div class="wp-cell">
-      <div class="wc-name">${m.nome}</div>
-      <div class="wc-unit">${m.un}</div>${rendWidget}
+      <div class="wc-name">${m.nome}</div><div class="wc-unit">${m.un}</div>${rendWidget}
       <div class="wc-val t1" id="sv-${m.id}">${fmt(v)}</div>
-      <input type="range" class="t1" id="sl-${m.id}" min="${m.min}" max="${m.max}" step="${m.step}" value="${v}" style="--pct:${p}%"
-        oninput="onSlider('${m.id}',this.value,${m.min},${m.max})">
-      <div class="wc-qty" id="qty-${m.id}">—</div>
-    </div>`;
+      <input class="price-input t1" type="text" id="inp-${m.id}" value="${formatBrMoney(v)}" 
+        oninput="onPriceInput('${m.id}',this.value,${m.min},${m.max},${m.val})" placeholder="0,00">
+      <div class="wc-qty" id="qty-${m.id}">—</div></div>`;
   });
   html+=`</div></div>`;
   document.getElementById('b1-container').innerHTML=html;
@@ -446,13 +416,11 @@ function updateB1(){
    {a:65.06,f:2,e:.01,tC:1,tCal:0,tA:4},{a:65.06,f:2,e:.02,tC:1,tCal:2,tA:8},
    {a:65.06,f:2,e:.02,tC:1,tCal:2,tA:6},{a:65.06,f:1,e:.02,tC:1,tCal:2,tA:8},
   ].forEach(l=>{const r=calcArg(l.a,l.f,l.e,l.tC,l.tCal,l.tA);kgC+=r.kgC;kgCal+=r.kgCal;m3A+=r.m3A;});
-
   let grand=0;const rows=[];
   wallMats.forEach(m=>{
-    const price=gp(m.id,m.val);
+    const price=gp(m.id);
     let qty=0,cost=0,ql='—';
-    if(m.tipo==='bloco'){
-      const d=getDims();qty=Math.ceil(W_TOT/((d.h+.01)*(d.c+.01))*1.05);cost=qty*price;ql=qty.toLocaleString('pt-BR')+' unid';
+    if(m.tipo==='bloco'){const d=getDims();qty=Math.ceil(W_TOT/((d.h+.01)*(d.c+.01))*1.05);cost=qty*price;ql=qty.toLocaleString('pt-BR')+' unid';
       const bq=document.getElementById('bqty');if(bq)bq.innerHTML='⟶ Qtd: <strong>'+qty.toLocaleString('pt-BR')+'</strong> unid';
     }else if(m.tipo==='aglom'){
       if(m.nome.includes('Cimento')){qty=Math.ceil(kgC/m.emb);cost=qty*price;ql=qty+' sc';}
@@ -464,24 +432,15 @@ function updateB1(){
       if(rend>0){
         if(m.nome.includes('Cerâmica')){qty=Math.ceil(fa/rend*1.1);cost=qty*price;ql=qty+' cx';}
         else if(m.nome.includes('AC II')){qty=Math.ceil(fa/rend);cost=qty*price;ql=qty+' sc';}
-        else if(m.nome.includes('Textura')){
-          // rend em m²/kg → kg totais = fa/rend → baldes = ceil(kg/emb)
-          qty=Math.ceil(fa/rend/m.emb);cost=qty*price;ql=qty+' baldes';
-        }
-        else if(m.nome.includes('Tinta')){
-          // rend em m²/L → litros totais = fa/rend → galões = ceil(litros/emb)
-          qty=Math.ceil(fa/rend/m.emb);cost=qty*price;ql=qty+' galões';
-        }else{
-          // Massa PVA: rend em m²/kg → kg totais = fa/rend → baldes = ceil(kg/emb)
-          qty=Math.ceil(fa/rend/m.emb);cost=qty*price;ql=qty+' baldes';
-        }
+        else if(m.nome.includes('Textura')){qty=Math.ceil(fa/rend/m.emb);cost=qty*price;ql=qty+' baldes';}
+        else if(m.nome.includes('Tinta')){qty=Math.ceil(fa/rend/m.emb);cost=qty*price;ql=qty+' galões';}
+        else{qty=Math.ceil(fa/rend/m.emb);cost=qty*price;ql=qty+' baldes';}
       }
     }
     grand+=cost;
     const qEl=document.getElementById('qty-'+m.id);if(qEl)qEl.textContent=ql;
     if(qty>0)rows.push({nome:m.nome,un:m.un,qty:ql,price,cost});
   });
-
   const cEl=document.getElementById('cost-b1');if(cEl)cEl.textContent=fmt(grand);
   const tbl=document.getElementById('sum-b1');if(!tbl)return;
   const d=getDims();
@@ -493,221 +452,119 @@ function updateB1(){
   totB1=grand;
 }
 
-// ════════════════════════════════════════════════════════
-// BUILD B2 — PISOS  (layout idêntico ao B1)
-// ════════════════════════════════════════════════════════
+// B2 - similar
 function buildB2(){
   const e=S.esp;
-  let html=`<div class="wp t2">
-  <div class="wp-head">
-    <div class="wp-head-title">Pisos — dados consolidados</div>
-    <div class="wp-chips">
-      <div class="chip">Total: <strong>32,81 m²</strong></div>
-      <div class="chip">Banheiros (cerâmica): <strong>8,46 m²</strong></div>
-      <div class="chip">Cimento Queimado: <strong>15,26 m²</strong></div>
-      <div class="chip">Laminado: <strong>9,09 m²</strong></div>
-    </div>
-    <div class="wp-total" id="cost-b2">R$ —</div>
-  </div>
-  <div class="wp-sub t2">
-    <div class="sub-lbl">Espessura das camadas (cm)</div>
-    <div class="dim-row">
-      <div class="dim-g"><div class="dim-l">Subbase (brita)</div>
-        <input class="dim-i" type="number" value="${e.sub}" min="1" max="20" step="0.5" oninput="setEsp('sub',this.value)"></div>
-      <div class="dim-sep">/</div>
-      <div class="dim-g"><div class="dim-l">Concreto</div>
-        <input class="dim-i" type="number" value="${e.conc}" min="1" max="30" step="0.5" oninput="setEsp('conc',this.value)"></div>
-      <div class="dim-sep">/</div>
-      <div class="dim-g"><div class="dim-l">Contrapiso</div>
-        <input class="dim-i" type="number" value="${e.cont}" min="1" max="10" step="0.5" oninput="setEsp('cont',this.value)"></div>
-    </div>
-    <div class="sub-qty t2">⟶ Área: <strong>32,81 m²</strong></div>
-  </div>
+  let html=`<div class="wp t2"><div class="wp-head"><div class="wp-head-title">Pisos — dados consolidados</div>
+    <div class="wp-chips"><div class="chip">Total: <strong>32,81 m²</strong></div><div class="chip">Banheiros: <strong>8,46 m²</strong></div>
+    <div class="chip">Cimento Queimado: <strong>15,26 m²</strong></div><div class="chip">Laminado: <strong>9,09 m²</strong></div></div>
+    <div class="wp-total" id="cost-b2">R$ —</div></div>
+  <div class="wp-sub t2"><div class="sub-lbl">Espessura das camadas (cm)</div>
+    <div class="dim-row"><div class="dim-g"><div class="dim-l">Subbase</div><input class="dim-i" type="number" value="${e.sub}" min="1" max="20" step="0.5" oninput="setEsp('sub',this.value)"></div>
+    <div class="dim-sep">/</div><div class="dim-g"><div class="dim-l">Concreto</div><input class="dim-i" type="number" value="${e.conc}" min="1" max="30" step="0.5" oninput="setEsp('conc',this.value)"></div>
+    <div class="dim-sep">/</div><div class="dim-g"><div class="dim-l">Contrapiso</div><input class="dim-i" type="number" value="${e.cont}" min="1" max="10" step="0.5" oninput="setEsp('cont',this.value)"></div>
+    </div><div class="sub-qty t2">⟶ Área: <strong>32,81 m²</strong></div></div>
   <div class="wp-grid cols-7 t2">`;
-
   floorMats.forEach(m=>{
     ip(m.id,m.val);
-    const v=gp(m.id,m.val),p=pct(v,m.min,m.max);
-    let aNote='32,81 m²';
-    if(m.area==='bath') aNote='8,46 m² (ban.)';
-    else if(m.area==='lam') aNote='9,09 m² (lam.)';
-    const rendWidget=m.rendAjust?`
-      <div class="rend-row">
-        <span class="rend-lbl">Rend.</span>
-        <input class="rend-inp" type="number" id="ri-${m.id}" value="${m.rend}" min="0.1" step="0.1"
-          oninput="setRend('${m.id}',this.value,${m.rend})">
-        <span class="rend-un">${m.rendUn}</span>
-      </div>`:'';
-    html+=`<div class="wp-cell">
-      <div class="wc-name">${m.nome}</div>
-      <div class="wc-unit">${m.un}</div>${rendWidget}
+    const v=gp(m.id);
+    const rendWidget=m.rendAjust?`<div class="rend-row"><span class="rend-lbl">Rend.</span><input class="rend-inp" type="number" id="ri-${m.id}" value="${m.rend}" min="0.1" step="0.1" oninput="setRend('${m.id}',this.value,${m.rend})"><span class="rend-un">${m.rendUn}</span></div>`:'';
+    html+=`<div class="wp-cell"><div class="wc-name">${m.nome}</div><div class="wc-unit">${m.un}</div>${rendWidget}
       <div class="wc-val t2" id="sv-${m.id}">${fmt(v)}</div>
-      <input type="range" class="t2" id="sl-${m.id}" min="${m.min}" max="${m.max}" step="${m.step}" value="${v}" style="--pct:${p}%"
-        oninput="onSlider('${m.id}',this.value,${m.min},${m.max})">
-      <div class="wc-qty" id="qty-${m.id}">—</div>
-    </div>`;
+      <input class="price-input t2" type="text" id="inp-${m.id}" value="${formatBrMoney(v)}" 
+        oninput="onPriceInput('${m.id}',this.value,${m.min},${m.max},${m.val})" placeholder="0,00">
+      <div class="wc-qty" id="qty-${m.id}">—</div></div>`;
   });
   html+=`</div></div>`;
   document.getElementById('b2-container').innerHTML=html;
   updateB2();
 }
-
-function updateB2(){
+function updateB2(){ /* mesmo raciocínio */ 
   let grand=0;const rows=[];
   floorMats.forEach(m=>{
-    const price=gp(m.id,m.val);
-    let qty=0,cost=0,ql='—';
+    const price=gp(m.id); let qty=0,cost=0,ql='—';
     if(m.tipo==='base'){
       const camada=m.camada;
-      if(camada==='sub'){
-        // brita: subbase volume
-        qty=Math.round(F_TOT*getEsp('sub')*1000)/1000;cost=qty*price;ql=fmtN(qty)+' m³';
-      }else if(camada==='conc'){
-        // concreto usinado
-        qty=Math.round(F_TOT*getEsp('conc')*1000)/1000;cost=qty*price;ql=fmtN(qty)+' m³';
-      }else if(camada==='cont'){
-        // cimento contrapiso: traço 1:4 — 1 parte cimento + 4 partes areia, dens. 1400 kg/m³
-        const vol=F_TOT*getEsp('cont');
-        qty=Math.ceil(vol*(1/5)*1400/50);cost=qty*price;ql=qty+' sc';
-      }else if(camada==='areia'){
-        // areia contrapiso
-        const vol=F_TOT*getEsp('cont');
-        qty=Math.round(vol*(4/5)*100)/100;cost=qty*price;ql=fmtN(qty)+' m³';
-      }
+      if(camada==='sub'){qty=Math.round(F_TOT*getEsp('sub')*1000)/1000;cost=qty*price;ql=fmtN(qty)+' m³';}
+      else if(camada==='conc'){qty=Math.round(F_TOT*getEsp('conc')*1000)/1000;cost=qty*price;ql=fmtN(qty)+' m³';}
+      else if(camada==='cont'){const vol=F_TOT*getEsp('cont'); qty=Math.ceil(vol*(1/5)*1400/50);cost=qty*price;ql=qty+' sc';}
+      else if(camada==='areia'){const vol=F_TOT*getEsp('cont'); qty=Math.round(vol*(4/5)*100)/100;cost=qty*price;ql=fmtN(qty)+' m³';}
     }else if(m.tipo==='rev'){
       const fa=m.area==='bath'?F_BATH:F_LAM;
       const rend=getRend(m.id,m.rend);
-      if(m.nome.includes('AC II')){
-        if(rend>0){qty=Math.ceil(fa/rend);cost=qty*price;ql=qty+' sc';}
-      }else if(rend>0){qty=Math.ceil(fa/rend*1.1);cost=qty*price;ql=qty+' cx';}
+      if(m.nome.includes('AC II')){if(rend>0){qty=Math.ceil(fa/rend);cost=qty*price;ql=qty+' sc';}}
+      else if(rend>0){qty=Math.ceil(fa/rend*1.1);cost=qty*price;ql=qty+' cx';}
     }
     grand+=cost;
     const qEl=document.getElementById('qty-'+m.id);if(qEl)qEl.textContent=ql;
     if(qty>0)rows.push({nome:m.nome,un:m.un,qty:ql,price,cost,area:m.area||null});
   });
-
   const cEl=document.getElementById('cost-b2');if(cEl)cEl.textContent=fmt(grand);
-  const tbl=document.getElementById('sum-b2');if(!tbl)return;
-  const se=S.esp;
+  const tbl=document.getElementById('sum-b2'); if(!tbl)return;
   let t=`<thead><tr><th>Material</th><th>Unidade</th><th>Área ref.</th><th class="tr">Quantidade</th><th class="tr">Preço unit.</th><th class="tr">Custo</th></tr></thead><tbody>`;
-  rows.forEach(r=>{
-    let aRef='32,81 m²';
-    if(r.area==='bath')aRef='8,46 m²';
-    else if(r.area==='lam')aRef='9,09 m²';
-    t+=`<tr><td>${r.nome}</td><td style="color:var(--muted)">${r.un}</td><td style="color:var(--muted)">${aRef}</td><td class="tr">${r.qty}</td><td class="tr" style="color:var(--muted)">${fmt(r.price)}</td><td class="tr" style="color:var(--accent2)">${fmt(r.cost)}</td></tr>`;
-  });
-  t+=`</tbody><tfoot><tr class="tot-row"><td colspan="5"><strong>TOTAL — PISOS</strong><span style="color:var(--muted);font-size:9px"> · subbase ${se.sub} cm / concreto ${se.conc} cm / contrapiso ${se.cont} cm · 32,81 m²</span></td><td class="tr"><strong>${fmt(grand)}</strong></td></tr></tfoot>`;
-  tbl.innerHTML=t;
-  document.getElementById('tot-b2').textContent=fmt(grand);
-  totB2=grand;
+  rows.forEach(r=>{let aRef='32,81 m²'; if(r.area==='bath')aRef='8,46 m²'; else if(r.area==='lam')aRef='9,09 m²'; t+=`<tr><td>${r.nome}</td><td style="color:var(--muted)">${r.un}</td><td style="color:var(--muted)">${aRef}</td><td class="tr">${r.qty}</td><td class="tr" style="color:var(--muted)">${fmt(r.price)}</td><td class="tr" style="color:var(--accent2)">${fmt(r.cost)}</td></tr>`;});
+  t+=`</tbody><tfoot><tr class="tot-row"><td colspan="5"><strong>TOTAL — PISOS</strong><span style="color:var(--muted);font-size:9px"> · subbase ${S.esp.sub} cm / concreto ${S.esp.conc} cm / contrapiso ${S.esp.cont} cm · 32,81 m²</span></td><td class="tr"><strong>${fmt(grand)}</strong></td></tr></tfoot>`;
+  tbl.innerHTML=t; document.getElementById('tot-b2').textContent=fmt(grand); totB2=grand;
 }
 
-// ════════════════════════════════════════════════════════
-// BUILD B3 — JANELAS
-// ════════════════════════════════════════════════════════
 function buildB3(){
-  const con=document.getElementById('cards-b3');con.innerHTML='';
+  const con=document.getElementById('cards-b3'); con.innerHTML='';
   winTypes.forEach((wn,wi)=>{
-    const card=document.createElement('div');
-    card.className='mat-card t3';card.style.animationDelay=wi*.07+'s';
-    const sid='b3-'+wn.id;ip(sid,wn.val);
-    const v=gp(sid,wn.val),p=pct(v,wn.min,wn.max);
-    card.innerHTML=`<div class="card-hdr">
-      <div class="card-ttl">${wn.nome}</div>
-      <span class="card-badge t3">${wn.qtd} unid.</span></div>
-      <div class="wall-info">
-        <div class="chip">Dim: <strong>${wn.dim}</strong></div>
-        <div class="chip">Peitoril: <strong>${wn.pt}</strong></div>
-        <div class="chip">Família: <strong>${wn.fam}</strong></div></div>
-      <div class="sld-sec"><div class="sld-row">
-        <span class="sld-lbl">Valor Unitário</span>
-        <span class="sld-val t3" id="sv-${sid}">${fmt(v)}</span></div>
-        <input type="range" class="t3" id="sl-${sid}" min="${wn.min}" max="${wn.max}" step="${wn.step}" value="${v}" style="--pct:${p}%"
-          oninput="onSlider('${sid}',this.value,${wn.min},${wn.max})"></div>
-      <div class="cost-line"><span class="cost-lbl">💰 ${wn.qtd} × valor unit.</span>
-        <span class="cost-val t3" id="cost-${wn.id}">${fmt(v*wn.qtd)}</span></div>`;
+    const card=document.createElement('div'); card.className='mat-card t3'; card.style.animationDelay=wi*.07+'s';
+    const sid='b3-'+wn.id; ip(sid,wn.val);
+    const v=gp(sid);
+    card.innerHTML=`<div class="card-hdr"><div class="card-ttl">${wn.nome}</div><span class="card-badge t3">${wn.qtd} unid.</span></div>
+      <div class="wall-info"><div class="chip">Dim: <strong>${wn.dim}</strong></div><div class="chip">Peitoril: <strong>${wn.pt}</strong></div><div class="chip">Família: <strong>${wn.fam}</strong></div></div>
+      <div class="sld-sec"><div class="sld-row"><span class="sld-lbl">Valor Unitário</span><span class="sld-val t3" id="sv-${sid}">${fmt(v)}</span></div>
+      <input class="price-input t3" type="text" id="inp-${sid}" value="${formatBrMoney(v)}" oninput="onPriceInput('${sid}',this.value,${wn.min},${wn.max},${wn.val})" placeholder="0,00"></div>
+      <div class="cost-line"><span class="cost-lbl">💰 ${wn.qtd} × valor unit.</span><span class="cost-val t3" id="cost-${wn.id}">${fmt(v*wn.qtd)}</span></div>`;
     con.appendChild(card);
   });
   updateB3();
 }
 function updateB3(){
-  let grand=0;const rows=[];
-  winTypes.forEach(wn=>{
-    const sid='b3-'+wn.id,price=gp(sid,wn.val),cost=price*wn.qtd;
-    grand+=cost;
-    const cEl=document.getElementById('cost-'+wn.id);if(cEl)cEl.textContent=fmt(cost);
-    const sv=document.getElementById('sv-'+sid);if(sv)sv.textContent=fmt(price);
+  let grand=0; const rows=[];
+  winTypes.forEach(wn=>{ const sid='b3-'+wn.id, price=gp(sid), cost=price*wn.qtd; grand+=cost;
+    const cEl=document.getElementById('cost-'+wn.id); if(cEl) cEl.textContent=fmt(cost);
+    const sv=document.getElementById('sv-'+sid); if(sv) sv.textContent=fmt(price);
     rows.push({nome:wn.nome,dim:wn.dim,qtd:wn.qtd,price,cost});
   });
-  const tbl=document.getElementById('sum-b3');
-  let t=`<thead><tr><th>Janela</th><th>Dimensão</th><th class="tc">Qtd</th><th class="tr">Unit.</th><th class="tr">Total</th></tr></thead><tbody>`;
+  const tbl=document.getElementById('sum-b3'); let t=`<thead><tr><th>Janela</th><th>Dimensão</th><th class="tc">Qtd</th><th class="tr">Unit.</th><th class="tr">Total</th></tr></thead><tbody>`;
   rows.forEach(r=>t+=`<tr><td>${r.nome}</td><td>${r.dim}</td><td class="tc">${r.qtd}</td><td class="tr">${fmt(r.price)}</td><td class="tr" style="color:var(--accent3)">${fmt(r.cost)}</td></tr>`);
   t+=`</tbody><tfoot><tr class="tot-row"><td colspan="4"><strong>TOTAL — JANELAS</strong></td><td class="tr"><strong>${fmt(grand)}</strong></td></tr></tfoot>`;
-  tbl.innerHTML=t;document.getElementById('tot-b3').textContent=fmt(grand);totB3=grand;
+  tbl.innerHTML=t; document.getElementById('tot-b3').textContent=fmt(grand); totB3=grand;
 }
-
-// ════════════════════════════════════════════════════════
-// BUILD B4 — PORTAS
-// ════════════════════════════════════════════════════════
 function buildB4(){
-  const con=document.getElementById('cards-b4');con.innerHTML='';
+  const con=document.getElementById('cards-b4'); con.innerHTML='';
   doorTypes.forEach((dr,di)=>{
-    const card=document.createElement('div');
-    card.className='mat-card t4';card.style.animationDelay=di*.07+'s';
-    const sid='b4-'+dr.id;ip(sid,dr.val);
-    const v=gp(sid,dr.val),p=pct(v,dr.min,dr.max);
-    card.innerHTML=`<div class="card-hdr">
-      <div class="card-ttl">${dr.nome}</div>
-      <span class="card-badge t4">${dr.qtd} unid.</span></div>
-      <div class="wall-info">
-        <div class="chip">Dim: <strong>${dr.dim}</strong></div>
-        <div class="chip">Família: <strong>${dr.fam}</strong></div></div>
-      <div class="sld-sec"><div class="sld-row">
-        <span class="sld-lbl">Valor Unitário</span>
-        <span class="sld-val t4" id="sv-${sid}">${fmt(v)}</span></div>
-        <input type="range" class="t4" id="sl-${sid}" min="${dr.min}" max="${dr.max}" step="${dr.step}" value="${v}" style="--pct:${p}%"
-          oninput="onSlider('${sid}',this.value,${dr.min},${dr.max})"></div>
-      <div class="cost-line"><span class="cost-lbl">💰 ${dr.qtd} × valor unit.</span>
-        <span class="cost-val t4" id="cost-${dr.id}">${fmt(v*dr.qtd)}</span></div>`;
+    const card=document.createElement('div'); card.className='mat-card t4'; card.style.animationDelay=di*.07+'s';
+    const sid='b4-'+dr.id; ip(sid,dr.val);
+    const v=gp(sid);
+    card.innerHTML=`<div class="card-hdr"><div class="card-ttl">${dr.nome}</div><span class="card-badge t4">${dr.qtd} unid.</span></div>
+      <div class="wall-info"><div class="chip">Dim: <strong>${dr.dim}</strong></div><div class="chip">Família: <strong>${dr.fam}</strong></div></div>
+      <div class="sld-sec"><div class="sld-row"><span class="sld-lbl">Valor Unitário</span><span class="sld-val t4" id="sv-${sid}">${fmt(v)}</span></div>
+      <input class="price-input t4" type="text" id="inp-${sid}" value="${formatBrMoney(v)}" oninput="onPriceInput('${sid}',this.value,${dr.min},${dr.max},${dr.val})" placeholder="0,00"></div>
+      <div class="cost-line"><span class="cost-lbl">💰 ${dr.qtd} × valor unit.</span><span class="cost-val t4" id="cost-${dr.id}">${fmt(v*dr.qtd)}</span></div>`;
     con.appendChild(card);
   });
   updateB4();
 }
 function updateB4(){
-  let grand=0;const rows=[];
-  doorTypes.forEach(dr=>{
-    const sid='b4-'+dr.id,price=gp(sid,dr.val),cost=price*dr.qtd;
-    grand+=cost;
-    const cEl=document.getElementById('cost-'+dr.id);if(cEl)cEl.textContent=fmt(cost);
-    const sv=document.getElementById('sv-'+sid);if(sv)sv.textContent=fmt(price);
+  let grand=0; const rows=[];
+  doorTypes.forEach(dr=>{ const sid='b4-'+dr.id, price=gp(sid), cost=price*dr.qtd; grand+=cost;
+    const cEl=document.getElementById('cost-'+dr.id); if(cEl) cEl.textContent=fmt(cost);
+    const sv=document.getElementById('sv-'+sid); if(sv) sv.textContent=fmt(price);
     rows.push({nome:dr.nome,dim:dr.dim,qtd:dr.qtd,price,cost});
   });
-  const tbl=document.getElementById('sum-b4');
-  let t=`<thead><tr><th>Porta</th><th>Dimensão</th><th class="tc">Qtd</th><th class="tr">Unit.</th><th class="tr">Total</th></tr></thead><tbody>`;
+  const tbl=document.getElementById('sum-b4'); let t=`<thead><tr><th>Porta</th><th>Dimensão</th><th class="tc">Qtd</th><th class="tr">Unit.</th><th class="tr">Total</th></tr></thead><tbody>`;
   rows.forEach(r=>t+=`<tr><td>${r.nome}</td><td>${r.dim}</td><td class="tc">${r.qtd}</td><td class="tr">${fmt(r.price)}</td><td class="tr" style="color:var(--accent4)">${fmt(r.cost)}</td></tr>`);
   t+=`</tbody><tfoot><tr class="tot-row"><td colspan="4"><strong>TOTAL — PORTAS</strong></td><td class="tr"><strong>${fmt(grand)}</strong></td></tr></tfoot>`;
-  tbl.innerHTML=t;document.getElementById('tot-b4').textContent=fmt(grand);totB4=grand;
+  tbl.innerHTML=t; document.getElementById('tot-b4').textContent=fmt(grand); totB4=grand;
 }
 
-// ════════════════════════════════════════════════════════
-// TOTAIS & ABAS
-// ════════════════════════════════════════════════════════
-function updateTotals(){
-  const t=totB1+totB2+totB3+totB4;
-  document.getElementById('tot-geral').textContent=fmt(t);
-  document.getElementById('hdr-total').textContent=fmt(t);
-}
-function showTab(id,btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('panel-'+id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// ════════════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════════════
-buildB1();buildB2();buildB3();buildB4();updateTotals();
+function updateTotals(){ const t=totB1+totB2+totB3+totB4; document.getElementById('tot-geral').textContent=fmt(t); document.getElementById('hdr-total').textContent=fmt(t);}
+function showTab(id,btn){ document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); document.getElementById('panel-'+id).classList.add('active'); btn.classList.add('active');}
+buildB1(); buildB2(); buildB3(); buildB4(); updateTotals();
 </script>
 </body>
 </html>
